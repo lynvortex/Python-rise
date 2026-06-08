@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Python觉醒</title>
+    <meta content="Python觉醒 作者：绘萤者Lynvortex" name="description" />
+    <meta content="default-src 'none'; style-src * 'unsafe-inline'; script-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; media-src * data: blob:; connect-src 'none'; form-action 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'" http-equiv="Content-Security-Policy" />
+    <script src="https://image.uc.cn/s/uae/g/3n/mos-production/0915/3.4.17.js">
+    </script>
+    <script src="https://image.uc.cn/s/uae/g/3n/mos-production/fontawesome-free-7.1.0-web/js/all.min.js">
+    </script>
+    <link href="https://image.uc.cn/s/uae/g/3n/mos-production/fontawesome-free-7.1.0-web/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="https://cdn.staticfile.net/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdn.staticfile.net/prism/1.29.0/prism.min.js">
+    </script>
+    <script src="https://cdn.staticfile.net/prism/1.29.0/components/prism-python.min.js">
+    </script>
+    <script src="https://cdn.staticfile.net/prism/1.29.0/components/prism-bash.min.js">
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar { transition: transform 0.3s ease-in-out; }
+        .sidebar-link { transition: all 0.2s; border-left: 3px solid transparent; }
+        .sidebar-link:hover, .sidebar-link.active { background-color: #f1f5f9; color: #2563eb; border-left-color: #2563eb; }
+        .prose h2 { font-size: 1.8rem; font-weight: 700; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0; color: #1e293b; }
+        .prose h3 { font-size: 1.4rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #334155; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; color: #475569; }
+        .prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .prose li { margin-bottom: 0.5rem; color: #475569; }
+        .prose strong { color: #0f172a; font-weight: 600; }
+        pre[class*="language-"] { border-radius: 0.5rem; margin: 1.5rem 0; font-size: 0.9rem; }
+        .callout { border-left: 4px solid; padding: 1rem; margin: 1.5rem 0; border-radius: 0.25rem; background-color: #f8fafc; }
+        .callout-info { border-color: #3b82f6; background-color: #eff6ff; }
+        .callout-warning { border-color: #f59e0b; background-color: #fffbeb; }
+        .callout-success { border-color: #10b981; background-color: #ecfdf5; }
+        .callout-danger { border-color: #ef4444; background-color: #fef2f2; }
+        #mobile-menu-overlay { background-color: rgba(0,0,0,0.5); transition: opacity 0.3s; }
+        .copy-btn { position: absolute; top: 8px; right: 8px; z-index: 10; width: 34px; height: 34px; border: none; border-radius: 6px; background-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); cursor: pointer; transition: all 0.2s ease; font-size: 14px; backdrop-filter: blur(4px); outline: none; display: flex; align-items: center; justify-content: center; }
+        .copy-btn:hover { background-color: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9); }
+        .copy-btn.copied { background-color: rgba(16,185,129,0.25); color: #10b981; }
+        .bg-slate-100 pre .copy-btn, .bg-white pre .copy-btn { background-color: rgba(0,0,0,0.06); color: rgba(0,0,0,0.4); }
+        .bg-slate-100 pre .copy-btn:hover, .bg-white pre .copy-btn:hover { background-color: rgba(0,0,0,0.12); color: rgba(0,0,0,0.7); }
+        .bg-slate-100 pre .copy-btn.copied, .bg-white pre .copy-btn.copied { background-color: rgba(16,185,129,0.2); color: #059669; }
+        .epilogue-block { background: linear-gradient(135deg, #fefefe 0%, #f9fafb 100%); border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 2.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .epilogue-block .divider-dot { display: flex; align-items: center; gap: 0.75rem; margin: 1.5rem 0; color: #9ca3af; font-size: 0.85rem; letter-spacing: 0.05em; }
+        .epilogue-block .divider-dot::before, .epilogue-block .divider-dot::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+        .epilogue-signature { text-align: right; font-size: 1rem; color: #374151; font-weight: 500; margin-top: 0.5rem; }
+        section { content-visibility: auto; contain-intrinsic-size: 500px; }
+        #intro { content-visibility: visible; contain-intrinsic-size: auto; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col h-screen overflow-hidden">
+    <div id="toc" style="position:absolute;top:0;left:0;width:0;height:0;"></div>
+    <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-4 lg:px-8 shrink-0 z-20 relative">
+        <div class="flex items-center gap-4">
+            <button class="lg:hidden text-slate-600 hover:text-slate-900 focus:outline-none" id="menu-toggle"><i class="fa-solid fa-bars text-xl"></i></button>
+            <div><h1 class="text-xl font-bold text-slate-900 tracking-tight">Python觉醒</h1><p class="text-xs text-slate-500 hidden sm:block">绘萤者Lynvortex</p></div>
+        </div>
+        <div class="flex items-center gap-4">
+            <a class="text-slate-500 hover:text-slate-900 transition-colors" href="https://github.com/lynvortex/Python-rise" target="_blank"><i class="fa-brands fa-github text-xl"></i></a>
+            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded">Python 3.12.x</span>
+        </div>
+    </header>
+    <div class="flex flex-1 overflow-hidden relative">
+        <div aria-hidden="true" class="fixed inset-0 z-20 opacity-0 pointer-events-none lg:hidden" id="mobile-menu-overlay"></div>
+        <aside class="sidebar fixed inset-y-0 left-0 w-72 bg-white border-r border-slate-200 overflow-y-auto transform -translate-x-full lg:translate-x-0 lg:static z-30 flex flex-col pt-4 lg:pt-0" id="sidebar">
+            <div class="p-4 lg:p-6">
+                <div class="mt-4">
+                    <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">正文</h4>
+                    <ul class="space-y-1">
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#intro">造梦者的第一行诗</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#chapter-1">第1章：开始之前</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#chapter-2">第2章：万物皆对象</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#chapter-3">第3章：会思考的代码</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#chapter-4">第4章：重复的事交给机器</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#chapter-5">第5章：组装你的第一套工具</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#chapter-6">第6章：数据的家</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#chapter-7">第7章：文件与异常</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#appendix-a">附录A：GitHub共享指南</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#hands-on">动手才是真的学</a></li>
+                        <li><a class="sidebar-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700" href="#epilogue">造梦者的下一行诗</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-auto p-4 border-t border-slate-100 bg-slate-50"><p class="text-xs text-slate-500 text-center">© 2026 绘萤者Lynvortex</p></div>
+        </aside>
+        <main class="flex-1 overflow-y-auto w-full scroll-smooth focus:outline-none" id="main-content">
+            <div class="max-w-4xl mx-auto px-6 py-12 prose">
+                <section class="mb-16 scroll-mt-24" id="intro">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-100">
+                        <h1 class="text-3xl font-bold text-slate-900 mb-4">造梦者的第一行诗</h1>
+                        <p>嗨，别来无恙啊！</p>
+                        <p>编程并不神秘，它更像是一门与电脑对话的手艺。而Python，是这门手艺中最亲切、最顺手的工具之一——语法清晰、功能强大，不论你是完全零基础的初学者，还是想转行到数据科学或Web开发的朋友，都能比较轻松地迈过门槛。</p>
+                        <p>每章末尾的「自检」是给你爬完一座山之后回头看一眼——确保自己没掉队。每题只有一行提示方向的关键词，没有答案。因为你需要的不是"我的答案对不对"，而是"跑一下就知道对不对"。</p>
+                        <p>后面附了一份「动手才是真的学」。那里没有"题目"，只有"试试看"和"搞坏它"。你不需要全部做完。编程里最骗人的一句话是"我看懂了"。代码只有亲手敲过、敲错过、再改对，才是真正属于你的。</p>
+                        <p>为了让这本书能被更多人自由地使用和分享，我做了一个不寻常的决定：</p>
+                        <ul class="list-disc list-inside"><li>书中的示例代码全部采用 <strong>MIT 许可证</strong>，你可以毫无顾虑地复制、修改，甚至用到自己的商业项目中。</li><li>书中的文字和图片 则采用 <strong>CC BY-NC-ND 4.0 许可证</strong>，你可以免费分享这本书（电子版），但请保留我的署名，不要用于商业目的，也不要修改书中的内容。</li></ul>
+                        <p>Github仓库：<a href="https://github.com/lynvortex/Python-rise" target="_blank">https://github.com/lynvortex/Python-rise</a></p>
+                        <p>这样的选择，是希望知识本身尽量开放，同时尊重作者的心血。如果你在某个论坛、网盘或读书群里见到了这本书的完整副本，我的目的就达到了。</p>
+                        <p>最后，也是最重要的：编程是一项需要动手的技能。请不要只“看”这本书，一定要把每一个示例亲手敲进电脑里，甚至故意改坏它，看看会发生什么——出错、调试、再运行，这才是真正的学习。</p>
+                        <p>祝你编码愉快，也期待你早日写出自己的第一个程序。</p>
+                        <p class="mt-2 text-slate-500">绘萤者<br/>2026.6.8</p>
+                    </div>
+                </section>
+
+                <!-- 第1章 -->
+                <section class="mb-16 scroll-mt-24" id="chapter-1">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">第1章 开始之前：搭建你的思维实验环境</h2>
+                    <p>搭建环境这件事，本不该成为你的第一道坎。把它想象成——你买了一台游戏机，总得先接上电源、插上手柄吧？这一章，我们就来做这件事。目标只有一个：让你亲手运行第一行Python代码，并且明白背后发生了什么。</p>
+                    <p>放心，我不会扔给你一堆链接让你自己去踩坑。跟着我，一步一步来。</p>
+                    <h3>1.1安装Python：就像装个游戏</h3>
+                    <p>Python的官方网站是 python.org。有个常见的坑：不是最新版就最好，但也不必选择太老的版本。当前主流稳定版本是 Python 3.12.x 或 3.13.x。绝大多数第三方库已经兼容这些版本，同时它们包含了最新的语法特性和性能优化。如果你遇到个别库不兼容的情况（概率极低），可以通过虚拟环境（将在后续章节学习）或临时降级解决，但不必一开始就选择旧版。</p>
+                    <div class="callout callout-info"><strong>本书推荐：Python 3.12.x。</strong> 它足够新，又有着广泛的库兼容性。</div>
+                    <div class="callout callout-info"><strong>小贴士：版本号怎么看？</strong><br/> Python 版本号形如 '3.12.4'：<br/> '3'是大版本（Python 2已停止维护，认准3）<br/>'12'是次版本（新特性在此引入）<br/>'4'是修订号（只有bug修复）<br/> 本书代码在3.12和任何更高版本都能运行。当你学完基础，再升级版本只需重新安装 Python 即可，所有知识仍然适用。</div>
+                    <p>下载好安装包后，双击运行。最关键的一步：窗口底部有一个复选框'Add Python to PATH'，一定要勾上。这就像把Python加进系统的'通讯录'，以后你可以在任何角落呼叫它。</p>
+                    <p>点击'Install Now'，等待进度条走完。好了。</p>
+                    <p>安装完了，怎么知道成没成功？我们来验证一下。</p>
+                    <p>打开命令行终端：</p>
+                    <p>Windows:按下'Win + R'，输入'cmd'，回车。在跳出来的黑色或白色窗口里，输入：</p>
+                    <pre><code class="language-bash">python --version</code></pre>
+                    <p>macOS/Linux：打开终端（macOS: Cmd+空格 搜索“终端”；Linux: Ctrl+Alt+T）。使用 python3 --version 检查 Python，后续命令用 python3 和 pip3 替代文档中的 python / pip。</p>
+                    <p>如果你看到类似 'Python 3.12.4' 的字样，恭喜，安装成功。这意味着你的操作系统已经认识 'python' 这个指令了。</p>
+                    <h3>1.2 pip：Python 的"应用商店"</h3>
+                    <p>pip 是 Python 的包管理工具，用于查找、下载、安装和卸载 Python 包。它是 Python 开发者必备的工具之一，特别是当你需要安装和管理不属于 Python 标准库的其他软件包时。</p>
+                    <p>你现在也许用不上，但还是有必要记一记。</p>
+                    <p>常用命令：</p>
+                    <pre><code class="language-bash">pip install 包名
+pip install 包名==1.0.0
+pip install --upgrade 包名
+pip uninstall 包名
+pip list
+pip show 包名</code></pre>
+                    <h4>1.2.1 常见问题：pip 找不到</h4>
+                    <p>这个通常有两个原因：</p>
+                    <p>1. 安装时没勾'Add Python to PATH'——这是排第一的元凶。PATH 是系统的“寻路地图”，没勾那个框，系统就不知道Python和pip装在哪。</p>
+                    <p>2. 装了，但命令行窗口没重启——如果你刚装完或刚改过环境变量，之前打开的终端窗口不会自动刷新，需要关闭重开。</p>
+                    <p>方案一：用'python -m pip'</p>
+                    <p>这是最稳妥的调用方式，永远不会出现'找不到'的问题。无论PATH有没有配好，只要'python'命令能跑，这个就能跑：</p>
+                    <pre><code class="language-bash">python -m pip install requests</code></pre>
+                    <p>'-m'的意思是“把后面的模块当作脚本来运行”。翻译成人话：Python大哥，你自己去找一下pip 放在哪，然后执行它。你不需要知道路径，系统也不需要配PATH，全是Python 内部的事情。</p>
+                    <p>方案二：检查 PATH 环境变量</p>
+                    <p>如果你想彻底修好 pip 命令，让它以后能直接用，得确认 PATH 是否包含了 Python 的安装路径和 Scripts 文件夹。</p>
+                    <p>先找到Python装在哪：在命令行输where python，会返回一个路径，例如：</p>
+                    <p>C:\Users\你的用户名\AppData\Local\Programs\Python\Python312\python.exe</p>
+                    <p>复制它。</p>
+                    <p>检查系统 PATH：</p>
+                    <p>按 Win 键，搜“环境变量”，点击“编辑系统环境变量” → “环境变量” → 在“系统变量”里找到 Path，双击，看列表里有没有 ...\Python312\ 和 ...\Python312\Scripts\ 这两条。如果没有，新建添加。</p>
+                    <p>改完后一定要关掉所有命令行窗口，重新打开一个，变动才会生效。</p>
+                    <p>方案三：重新安装 Python，这次勾上 PATH</p>
+                    <p>如果第二步不能解决问题，最简单暴力的方式就是直接重装Python。这次在安装窗口底部，一定勾选'Add Python to PATH'，然后点Install。装完之后，关掉旧终端、开新终端，一切就正常了。</p>
+                    <h4>1.2.2 提速 pip：配置国内镜像源</h4>
+                    <p>pip默认从国外的PyPI服务器下载包，在国内直接使用可能只有几KB/s，甚至超时断开。一个不需要任何技术含量的办法就是改用国内的镜像站，它们是PyPI的完整复制，下载速度可以跑满你的宽带。</p>
+                    <p>常用镜像地址（任选其一）：</p>
+                    <p>清华大学：'https://pypi.tuna.tsinghua.edu.cn/simple'</p>
+                    <p>阿里云：'https://mirrors.aliyun.com/pypi/simple'</p>
+                    <p>中科大：'https://pypi.mirrors.ustc.edu.cn/simple'</p>
+                    <p>从 pip 10.0 开始，支持用 pip config set 命令直接配置，无需手动编辑文件。打开命令行，执行：</p>
+                    <pre><code class="language-bash">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</code></pre>
+                    <p>再执行：</p>
+                    <pre><code class="language-bash">pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn</code></pre>
+                    <p>验证是否生效：</p>
+                    <pre><code class="language-bash">pip config list</code></pre>
+                    <p>如果输出中包含你刚设置的 global.index-url，就说明永久配置成功了。以后再执行任何 pip install 包名，都会自动到镜像站下载，速度起飞。</p>
+                    <h3>1.3 第一次亲密接触：让电脑帮你算数</h3>
+                    <p>现在，别走开，我们立刻在里面写点东西。在同一个命令行窗口输入'python'，然后按回车。你会发现光标前面多了 '>>>' 这个符号。</p>
+                    <p>这就进入了Python 的交互模式。简单说，就是你敲一行命令，它立刻给你回答，像在跟一个活的翻译官对话。</p>
+                    <p>我们试试让它做道算术题。在 '>>>' 后面输入：</p>
+                    <pre><code class="language-python">print(2 + 3)</code></pre>
+                    <p>然后按回车。屏幕上立刻出现了：5</p>
+                    <p>看，你刚刚给电脑下达了一个指令：“计算 2 加 3，并把结果打印出来。” 它完美执行了。</p>
+                    <p>别小看这个 '5'。这是你作为程序员的第一行有效输出。很多人的编程之路，就是从这样一个简单的加法开始的。你再试试：</p>
+                    <pre><code class="language-python">print("Hello, world!")</code></pre>
+                    <p>屏幕上会出现 'Hello, world!'。注意到了吗？计算数字时，直接写'2+3'；而要让电脑处理文字，得用引号把文字包起来。这是为了让电脑区分“命令”和“内容”，我们下一章会细讲。</p>
+                    <p>现在，你可以尽情玩一会儿。把 '2+3' 换成别的数字，或者把引号里的字改掉。如果想退出这个交互模式，输入 'exit()' 或者直接关掉窗口就行。</p>
+                    <div class="callout callout-info"><strong>留一个印象：两种运行代码的方式</strong><br/> 你刚刚体验的是交互模式，输一行，执行一行。还有一种更常见的方式，是把代码写在一个文件里，一次性执行。这就是脚本模式。两种模式你会反复用到，我们在1.7节会动手试一试。</div>
+                    <h3>1.4 解释器、编辑器、IDE：三个容易搞混的概念</h3>
+                    <p>刚才你已经在交互模式里写了代码。现在你可能想问：那些专业程序员是在这种黑窗口里写程序吗？当然不是。这里就要厘清几个概念，它们常常让新手迷惑。</p>
+                    <p><strong>解释器</strong>：就是刚才响应你'python' 命令的那个程序。它负责把你写的Python 代码，翻译成电脑能执行的机器指令。你写的文本，它来“解释”。</p>
+                    <p><strong>编辑器</strong>：任何能编辑纯文本的工具，比如Windows自带的记事本，Mac的文本编辑。你可以把代码写在一个'.py'后缀的文件里，然后用'python文件名.py'命令去让解释器执行整个文件。但纯文本编辑器太简陋了，连代码高亮都没有。</p>
+                    <p><strong>IDE（集成开发环境）</strong>：就是加强版的编辑器。它把“写代码”、“运行”、“调试”等功能都集成在一起，像给程序员准备的豪华工作台。PyCharm、VS Code就是著名的IDE。</p>
+                    <p>你可能会问：那我该用哪个？新手最大的痛苦来源于工具复杂度远超学习内容本身。</p>
+                    <h3>1.5 可选择的工作台：VSCode 极简上手</h3>
+                    <p>VSCode（Visual Studio Code）是目前最流行的免费代码编辑器，对Python的支持极佳。最妙的是，它既能编辑'.py'脚本，也能直接运行。所以，你完全可以只装一个 VSCode。</p>
+                    <p>很多专业程序员每天都在 VSCode 里工作，尽早熟悉它，你就走在了一条最踏实的路上。</p>
+                    <p>1.去https://code.visualstudio.com下载安装VSCode。它就像装一个普通软件，一路默认即可。</p>
+                    <p>2.打开VSCode，点击左侧“扩展”图标（或按 'Ctrl+Shift+X'），搜索'Python'，安装微软官方的Python扩展。这个扩展会为你提供代码补全、错误提示等智能功能。</p>
+                    <p>3.新建一个文件，保存为'hello.py'，输入：</p>
+                    <pre><code class="language-python">print("Hello World")</code></pre>
+                    <p>按下'Ctrl+s'进行保存，点击右上角的“运行”按钮（▶），或按'Ctrl+F5'，下方终端会显示出结果。</p>
+                    <p>VSCode的终端就类似咱们刚刚用的命令行，在这里你也可以直接输入'python'进入交互模式。这意味着，VSCode把编辑器、终端、文件管理都整合在了一起。如果你是那种喜欢“一个窗口搞定一切”的学习者，用VSCode作为起点也完全可行。</p>
+                    <h3>1.6 动手：创建并运行你的第一个.py脚本</h3>
+                    <p>光在命令行里输一行跑一行，成不了真正的程序。真正的程序是一系列指令，保存在一个'.py'文件里，随时可以重复执行。'.py'文件本质上就是一个纯文本文件，只是后缀名告诉系统：“这是 Python 代码。”</p>
+                    <p>接下来，我们走一遍最简单、最不容易出错的流程：使用VSCode新建文件。</p>
+                    <p><strong>第一步：在 VSCode 中新建文件</strong></p>
+                    <p>打开 VSCode，按 Ctrl + N（Mac 上用 Cmd + N）新建一个空白文件，按 Ctrl + S 保存，弹出一个保存对话框，选择一个你容易找到的文件夹，比如桌面的 python_learning（没有的话可以新建一个）。</p>
+                    <p>文件名输入 welcome.py —— 重点：结尾必须是 .py，VSCode 会自动识别这是 Python 代码。</p>
+                    <p>点击“保存”。</p>
+                    <p>小提示：你不需要手动在文件夹里“新建文本文档”再改后缀。直接在 VSCode 里保存为 .py 最干净，也不会踩“文件名变成 welcome.py.txt”的坑。</p>
+                    <p><strong>第二步：告诉 VSCode 使用哪个 Python（只需做一次）</strong></p>
+                    <p>在你写代码之前，最好先确认 VSCode 已经“认识”你刚安装的 Python。这一步通常只需要做一次。</p>
+                    <p>按 Ctrl+Shift+P（Mac 用 Cmd+Shift+P），打开命令面板。</p>
+                    <p>输入 Python: Select Interpreter 并选择。</p>
+                    <p>在弹出的列表里，选中你安装的 Python 版本，比如 Python 3.12.x。</p>
+                    <p>如果列表里空空如也，说明 Python 没装好或 PATH 没配好——回到 1.1 节检查一下。</p>
+                    <p><strong>第三步：写代码</strong></p>
+                    <p>在VSCode的编辑区输入以下代码：</p>
+                    <pre><code class="language-python">name = input("请输入你的名字：")
+greeting = "你好，" + name + "！欢迎来到 Python 的世界。"
+print(greeting)</code></pre>
+                    <p>4.按'Ctrl + S'保存。</p>
+                    <p>看到了吗？VSCode 会自动识别'.py'后缀，为你提供语法高亮和智能提示。你只需要一个能写代码的编辑器，记事本不需要参与“写代码”这个环节。</p>
+                    <p><strong>第四步：运行它</strong></p>
+                    <p>VSCode 里有好几种运行方式，挑你顺手的：</p>
+                    <p>方法一（最简单）：点击编辑区右上角的 ▶ 运行按钮。</p>
+                    <p>方法二（快捷键）：按 Ctrl + F5（Mac 用 Ctrl + Fn + F5 或 Cmd + F5，取决于设置）。</p>
+                    <p>方法三（使用终端）：按 Ctrl + `（反引号，键盘 Esc 下面的那个键）打开内置终端，然后输入：</p>
+                    <pre><code class="language-bash">python welcome.py</code></pre>
+                    <p>注意：在 macOS / Linux 上，可能需要用 python3 welcome.py 而不是 python。如果 python 提示找不到，就试试 python3。</p>
+                    <p>无论哪种方式，程序都会提示你输入名字。键入名字后按回车，它就会热情地跟你打招呼。</p>
+                    <p>这里发生了什么？</p>
+                    <ul><li>'input()' 让程序暂停，等你输入。</li><li>你输入的文字被放进变量 'name'。</li><li>'+' 把几段文字拼接成完整的问候语，存入 'greeting'。</li><li>'print()' 输出最后结果。</li></ul>
+                    <p>虽然这些语法还没讲，但你已经模糊地感知到了：程序就是从上到下一步步执行的，你可以让程序等你，然后根据你的输入做出不同的反应。</p>
+                    <h3>1.7 总结与下一步</h3>
+                    <p>在这一章，我们没有急着学语法，而是做了一件重要的事：铺设跑道。你安装了Python 3.12，理解了工具的区别，搭建了VSCode工作环境，学会了'.py'脚本的创建与运行方法，并建立了运行原理的初步概念。</p>
+                    <p>从下一章开始，每学一个新知识点，你可以写进 '.py'文件里跑一遍。这个练习的习惯，会让你对概念的理解深得多。</p>
+                    <p>现在，你的电脑里已经有了完备的编程实验环境。下一章，我们将走进Python的对象世界。你会发现，你操作的每一个数字、每一段文字，都是一个活的“积木”，它们自带功能，你只需学会如何组合它们。</p>
+                    <p>你跑起来了。欢迎来到编程世界。</p>
+                    <div class="bg-slate-100 rounded-lg p-6 mt-8 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>自检</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                            <li>试试'print(10 - 7)'和'print(10 * 7)'。*是乘法，除法符号是什么？自己搜索一下看看。</li>
+                            <li>试着'print("你的名字")'，把名字换成你自己的。（提示：引号内替换）</li>
+                            <li>将练习1中的算术运算写成'calc.py'脚本，分别打印加减乘除的结果，然后在命令行运行它。注意体会“写完——保存——运行——看结果”的完整循环。</li>
+                        </ol>
+                        <p class="text-sm text-slate-500 mt-2">（提示：需要先“cd 文件所在目录”然后输入python calc.py运行）</p>
+                    </div>
+                </section>
+
+                <!-- 第2章 -->
+                <section class="mb-16 scroll-mt-24" id="chapter-2">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">第2章 万物皆对象：先学会用积木</h2>
+                    <p>在上一章，我们搭建好了工作环境，也跑了人生第一行代码。现在，你面对 VSCode 的编辑区，可能会想：我能写什么？我能操作什么？</p>
+                    <p>答案很简单：一切皆是对象，一切皆是积木。</p>
+                    <p>Python 世界里，你接触到的每一个东西——一个数字、一段文字、一个列表——都是一个“对象”。这个称呼听起来有点玄，但你可以这样理解：每个对象都是一块自带说明书的乐高积木，它知道自己是什么类型，能做哪些操作。你作为程序员，就是学习识别这些积木的形状，然后把它们拼装起来。</p>
+                    <p>这一章，我们从最基础的积木开始：数字、文字、真假值，以及用来贴标签的变量。</p>
+                    <h3>2.1 数字：最诚实的积木</h3>
+                    <p>打开你的VSCode 终端，进入交互模式。输入一个数字，按回车：</p>
+                    <pre><code class="language-python">42</code></pre>
+                    <p>Python 什么也没抱怨，直接回你一个 42。它认识数字。你再试试：</p>
+                    <pre><code class="language-python">3.14
+-7
+0</code></pre>
+                    <p>这些都是数字。Python 把数字主要分成三类，对应我们生活中的数学概念：</p>
+                    <p>整数（int）：42、0、-7、1000000。Python 3 的整数可以无限大，不用担心溢出。</p>
+                    <p>浮点数（float）：带小数点的，3.14、-0.5、1.0。即使写成 1.0，它也是浮点数，不是整数。</p>
+                    <p>复数（complex）：1+2j，工科生可能用到，我们这本书不深入。</p>
+                    <p>数字对象自带运算能力。加 +，减 -，乘 *，除 /，你已经见过了：</p>
+                    <pre><code class="language-python">print(10 + 3) # 13
+print(10 - 3) # 7
+print(10 * 3) # 30
+print(10 / 3) # 3.3333333333333335</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：除法的结果总是浮点数。</strong><br/> 即使 10 / 2，结果也是 5.0 而不是 5。如果你想要整数结果（比如分东西，只要完整的份数），Python 提供了两个工具：</div>
+                    <pre><code class="language-python">print(10 // 3) # 3，整除（地板除），向下取整丢掉小数
+print(10 % 3) # 1，取余数（模运算），10 除以 3 剩 1</code></pre>
+                    <p>另外还有一个 **，代表乘方：</p>
+                    <pre><code class="language-python">print(2 ** 10) # 1024，2 的 10 次方</code></pre>
+                    <p>运算优先级和我们小学数学一样：先乘方，再乘除，再加减，括号里的优先。不确定的时候，加括号就对了：</p>
+                    <pre><code class="language-python">print((2 + 3) * 4) # 20，而不是 14</code></pre>
+                    <h3>2.2 字符串：会说话的文字积木</h3>
+                    <p>数字是冰冷的，文字才有温度。在 Python 里表示文字，得用引号包起来。这样 Python 才能区分：这是要处理的“内容”，而不是“命令”。</p>
+                    <pre><code class="language-python">"Hello"
+'世界'</code></pre>
+                    <p>单引号和双引号都可以，但必须成对出现。它们造出来的，就是一个字符串（str）对象。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：中英文引号是两回事。</strong><br/> 编程里的引号必须是英文输入法下的 " 或 '。中文的 “ 和 ” Python 不认识，会直接报 SyntaxError。这是初学者最容易犯的错误之一，而且很多时候肉眼看不出来。如果代码莫名报错，先检查引号是不是英文的。</div>
+                    <p>字符串可以和数字一样，用 print() 输出：</p>
+                    <pre><code class="language-python">print("Hello, world!")</code></pre>
+                    <p><strong>字符串的拼接</strong></p>
+                    <p>两个字符串可以用 + 粘在一起：</p>
+                    <pre><code class="language-python">print("你好" + "世界") # 你好世界</code></pre>
+                    <p>还可以用 * 重复：</p>
+                    <pre><code class="language-python">print("哈" * 5) # 哈哈哈哈哈</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：字符串和数字不能直接拼接。</strong><br/> 如果你写 "我今年" + 25 + "岁"，会报错。因为 25 是整数，不是字符串。你需要先把它转成字符串——用 str() 函数：</div>
+                    <pre><code class="language-python">print("我今年" + str(25) + "岁") # 正确</code></pre>
+                    <p>str() 能把很多东西变成字符串，它是一个类型转换函数，后面我们会经常用到。</p>
+                    <p><strong>f-string：最舒服的拼接方式</strong></p>
+                    <p>从 Python 3.6 开始，有一种更方便的写法，叫 f-string（格式化字符串）。在引号前加个 f，然后用花括号 {} 把变量或表达式包起来，就能直接嵌入：</p>
+                    <pre><code class="language-python">age = 25
+print(f"我今年{age}岁") # 我今年25岁
+print(f"明年我就{age + 1}岁了") # 明年我就26岁了</code></pre>
+                    <p>f-string 会在后续章节大量使用，它比 + 拼接更直观、更不容易出错。现在你只需要记住：遇到“把东西塞进一句话里”的需求，用 f-string。</p>
+                    <h3>2.3 布尔值：真假美猴王</h3>
+                    <p>有些时候，我们只需要回答“是”或“否”。比如：登录成功了吗？分数及格了吗？这时候就用到了布尔值（bool）。</p>
+                    <p>它只有两个成员：</p>
+                    <pre><code class="language-python">True
+False</code></pre>
+                    <p>注意首字母要大写，true 或 TRUE 都不对。Python 的大小写是严格区分的。</p>
+                    <p>布尔值本身看着简单，但它们通常来自比较运算：</p>
+                    <pre><code class="language-python">print(10 > 5) # True
+print(10 < 5) # False
+print(10 == 10) # True，两个等号表示“比较是否相等”
+print(10 != 10) # False，!= 表示“不等于”</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：一个等号 = 和两个等号 == 是完全不同的东西。</strong><br/> = 是赋值（把右边的东西赋给左边），== 是比较（左边和右边是否相等）。这个坑几乎每个人都踩过，如果发现程序行为诡异，先检查是不是把 == 写成了 =。</div>
+                    <p>and、or、not 可以把布尔值组合起来：</p>
+                    <pre><code class="language-python">print(10 > 5 and 10 < 20) # True，两边都真才真
+print(10 > 5 or 10 > 20) # True，一边真就真
+print(not 10 > 5) # False，取反</code></pre>
+                    <p>布尔值在下一章做判断时会大放异彩。现在你只需要知道：它们是“判断结果”的自然表达。</p>
+                    <h3>2.4 None：空无一物也是一种积木</h3>
+                    <p>有时候，你需要表达“什么都没有”或“暂未定义”。Python 里用 None 表示这个状态，它是一个特殊的对象，类型是 NoneType。</p>
+                    <pre><code class="language-python">result = None
+print(result) # None</code></pre>
+                    <p>None 不是 0，不是空字符串，也不是 False。它就是一种独特的“空瓶”状态。以后处理函数返回值、占位初始化时，None 会经常出现。初学时你先认识它，知道它叫“空值”即可。</p>
+                    <h3>2.5 变量：贴上去的标签</h3>
+                    <p>到现在，我们玩的数字、字符串都是“用完即丢”。但如果我想记住一个中间结果，后面再用，怎么办？这就需要变量。</p>
+                    <p><strong>变量的本质：标签，不是盒子</strong></p>
+                    <p>可以先把变量想象成一个"标签"贴在对象上，而不是一个装东西的"盒子"。这个比喻的区别，等你学到第6章的列表时就会亲眼看到。</p>
+                    <p>Python 的变量更像一个标签，贴在对象上。</p>
+                    <pre><code class="language-python">x = 42</code></pre>
+                    <p>这行代码应该这样理解：</p>
+                    <p>1.Python 先在内存里创建了一个整数对象 42。</p>
+                    <p>2.然后，它把一个叫 x 的标签贴在了 42 上面。</p>
+                    <p>3.以后你用 x，Python 就顺着标签找到 42。</p>
+                    <p>再来看：</p>
+                    <pre><code class="language-python">y = x</code></pre>
+                    <p>这不是"复制一份"，而是在 42 这个对象上再贴一个标签 y。x 和 y 都指向同一个 42。</p>
+                    <p>对于数字和字符串，两种理解暂时看不出差别。第6章讲列表时，你就能亲眼看到区别。先记住"标签"这个直觉就好。</p>
+                    <p><strong>变量命名规则</strong></p>
+                    <p>给变量起名字有几点限制：</p>
+                    <p>1.只能由字母、数字、下划线组成，不能有空格。</p>
+                    <p>2.不能以数字开头（1name 不行，name1 可以）。</p>
+                    <p>3.不能是 Python 的保留字，比如 if、for、class。这些词 Python 自己用了。</p>
+                    <p>惯例：Python 社区推荐用 snake_case（蛇形命名法），全部小写，用下划线分隔：</p>
+                    <pre><code class="language-python">user_name = "张三"
+total_score = 95</code></pre>
+                    <p>驼峰命名 userName 虽然也能跑，但在 Python 里不推荐。保持一致，以后合作会更顺畅。</p>
+                    <h3>2.6 type() 函数：照妖镜</h3>
+                    <p>你拿到一个对象，不确定它是什么类型？别猜，直接问 Python。type() 函数就是那把“照妖镜”：</p>
+                    <pre><code class="language-python">print(type(42)) # <class 'int'>
+print(type(3.14)) # <class 'float'>
+print(type("hello")) # <class 'str'>
+print(type(True)) # <class 'bool'>
+print(type(None)) # <class 'NoneType'></code></pre>
+                    <p>输出格式都是 <class '类型名'>，一目了然。养成用 type() 快速确认类型的习惯，调试时会省很多时间。</p>
+                    <h3>2.7 总结与下一步</h3>
+                    <p>在这一章，我们认识了 Python 世界最基础的几块积木：</p>
+                    <p>数字：整数 int、浮点数 float，以及它们之间的运算规则。</p>
+                    <p>字符串：str，用引号包裹，支持拼接和 f-string 嵌入。</p>
+                    <p>布尔值：True / False，来自比较运算，用于逻辑判断。</p>
+                    <p>None：表示“空”。</p>
+                    <p>变量：像标签一样贴在对象上（详见第6章6.6节）</p>
+                    <p>type()：随时查看对象的类型。</p>
+                    <p>这些看起来简单，但它们是整座大厦的地基。下一章，我们将学习让代码做判断——if 语句。你会开始写出真正“会思考”的程序。</p>
+                    <div class="bg-slate-100 rounded-lg p-6 mt-8 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>自检</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                            <li>计算 100 除以 6 的商（整除）和余数，分别打印。</li>
+                            <li>分别用 + 拼接和 f-string 两种方式，打印一句话：“我今年25岁，身高175厘米。”（年龄和身高用变量存储）</li>
+                            <li>试试 print(10 == "10")，结果是 True 还是 False？为什么？</li>
+                            <li>用 type() 查看 3.0、"3.0"、True、None 的类型，记录输出。</li>
+                            <li>写下你认为 x = 5 这行代码在 Python 内部发生了什么？（参考示例："Python先创建整数对象5，然后把标签x贴上去"）</li>
+                            <li>建议完成「动手才是真的学」。</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- 第3章 -->
+                <section class="mb-16 scroll-mt-24" id="chapter-3">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">第3章 会思考的代码：让程序做判断</h2>
+                    <p>上一章我们认识了各种积木：数字、字符串、布尔值。但它们只是躺在那里，什么也不做。想让程序“活”起来，它必须能做判断——根据不同的情况，执行不同的代码。</p>
+                    <p>这一章，我们将学会 if 语句。这是编程的第一个思维拐点：你不再只是写死了的命令清单，而是开始建造岔路口。程序会根据条件，自己选择走哪条路。</p>
+                    <h3>3.1 一个真实的问题：我能玩游戏吗？</h3>
+                    <p>假设你要写一个程序，用户输入年龄，如果大于等于18岁，就显示“可以玩游戏”，否则显示“年龄不够”。</p>
+                    <p>在学 if 之前，我们没法写这种程序。print() 只会傻傻地输出，它不会看条件。</p>
+                    <p>if 语句的思维模型很简单，就是一条岔路：</p>
+                    <pre><code class="language-python">age = int(input("请输入你的年龄："))
+if age >= 18:    
+    print("可以玩游戏")
+else:    
+    print("年龄不够")</code></pre>
+                    <p>运行一下，输入 20，屏幕显示“可以玩游戏”；输入 15，显示“年龄不够”。</p>
+                    <p>第一个 if 语句，你已经写出了“会思考”的代码。</p>
+                    <h3>3.2 if 语句的结构拆解</h3>
+                    <p>把上面那个例子拆开，if 语句由四部分组成：</p>
+                    <p><strong>第一部分：关键字 if</strong></p>
+                    <p>所有判断从这里开始。if 后面跟一个条件——一个布尔值，或者能算出布尔值的表达式。</p>
+                    <p><strong>第二部分：条件</strong></p>
+                    <pre><code class="language-python">age >= 18</code></pre>
+                    <p>这就是条件。它运算的结果要么是 True，要么是 False。条件可以是任何能产生布尔值的东西：</p>
+                    <pre><code class="language-python">if True: # 永远执行
+if False: # 永远不执行（没意义，只是演示）
+if 10 > 5: # True
+if "a" == "b": # False
+if age >= 18: # 看 age 的值
+if is_logged_in: # 直接用布尔变量</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：条件后面必须加冒号 :。</strong><br/> 忘记冒号是最常见的语法错误。Python 用冒号告诉解释器：“准备好了，下面是一个代码块。”</div>
+                    <p><strong>第三部分：缩进的代码块</strong></p>
+                    <p>冒号下面，缩进的代码就是“条件成立时执行”的内容：</p>
+                    <pre><code class="language-python">if age >= 18:    
+    print("可以玩游戏") # 缩进了，属于 if    
+    print("祝你玩得开心") # 也缩进了，也属于 if
+print("欢迎光临") # 没缩进，不属于 if，永远执行</code></pre>
+                    <p>缩进是 Python 的语法，不是装饰。 标准的缩进是4个空格。你可以按 Tab 键，VSCode  会自动转换成4个空格。不要空格和 Tab 混用，否则会报 IndentationError，而且极其难排查。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：缩进不一致。</strong><br/> 同一个代码块里，缩进必须完全一致。如果第一行缩进4格，第二行缩进3格或5格，Python 就懵了。VSCode会自动帮你保持缩进，但复制粘贴代码时要格外小心。</div>
+                    <p><strong>第四部分：else（可选）</strong></p>
+                    <p>else 后面也跟冒号和缩进的代码块，在条件不成立时执行。else 不是必须的——如果你只在条件成立时想做点什么，不成立时什么都不用干，就可以不写 else。</p>
+                    <pre><code class="language-python">if score >= 60:    
+    print("及格了")
+# 不及格的话，什么也不发生</code></pre>
+                    <h3>3.3 多岔路口：if-elif-else</h3>
+                    <p>现实中的判断往往不是非黑即白。比如给分数评等级：</p>
+                    <p>90分以上：优秀</p>
+                    <p>80~89分：良好</p>
+                    <p>60~79分：及格</p>
+                    <p>60分以下：不及格</p>
+                    <p>elif 就是“否则如果”，可以在中间插入更多条件分支：</p>
+                    <pre><code class="language-python">score = 85
+if score >= 90:    
+    print("优秀")
+elif score >= 80:    
+    print("良好")
+elif score >= 60:    
+    print("及格")
+else:    
+    print("不及格")</code></pre>
+                    <p>执行顺序是从上到下，一个一个条件试。 哪个条件先成立，就执行那个代码块，然后直接跳出整个 if 结构，不会再往下试。所以上面的代码输出“良好”，不会再去检查是否大于60。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：条件顺序很重要。</strong><br/> 如果你把 score >= 60 写在最前面，那么 85 分也会命中“及格”，后面的 elif 就永远没机会了：</div>
+                    <pre><code class="language-python"># 错误的顺序
+if score >= 60:    
+    print("及格") # 85 在这里就匹配了，输出"及格"
+elif score >= 80:    
+    print("良好") # 永远不会被执行，因为 >=60 已经截住了
+elif score >= 90:   
+    print("优秀") # 同上</code></pre>
+                    <p>写 if-elif-else 的正确习惯：从最严格的条件开始，逐渐放宽，else 收底。</p>
+                    <h3>3.4 条件嵌套：岔路里面还有岔路</h3>
+                    <p>判断里面还能再判断。比如电影院：先看有没有票，有票再看年龄够不够：</p>
+                    <pre><code class="language-python">has_ticket = True
+age = 16
+if has_ticket:    
+    if age >= 18:        
+        print("可以观看")    
+    else:        
+        print("年龄不够，不能观看")
+else:    
+    print("没有票，不能入场")</code></pre>
+                    <p>嵌套是合法的，但不要过度嵌套。如果你发现自己写了三层以上的 if 套 if，代码读起来会像一团乱麻。通常可以用 and 把条件合并，把嵌套“拍平”：</p>
+                    <pre><code class="language-python">if has_ticket and age >= 18:    
+    print("可以观看")
+elif has_ticket and age < 18:    
+    print("年龄不够，不能观看")
+else:    
+    print("没有票，不能入场")</code></pre>
+                    <p>能用 and / or 拍平就拍平，保持代码左对齐，可读性第一。</p>
+                    <h3>3.5 条件表达式（进阶选读）</h3>
+                    <p>有时候，你只是想在两个值之间选一个，if-else 写四行未免太啰嗦。Python 有一种精简写法，叫条件表达式（也叫三元表达式）：</p>
+                    <pre><code class="language-python"># 啰嗦版
+if age >= 18:    
+    status = "成年"
+else:    
+    status = "未成年"
+
+# 精简版
+status = "成年" if age >= 18 else "未成年"</code></pre>
+                    <p>语法是：X if 条件 else Y。条件为真取 X，为假取 Y。</p>
+                    <p>这个很适合用于一行赋值或 f-string 中：</p>
+                    <pre><code class="language-python">print(f"你是{'成年' if age >= 18 else '未成年'}人")</code></pre>
+                    <p>初学时不强求，但看到了能认识。</p>
+                    <h3>3.6 真值测试：什么条件算是“真”？</h3>
+                    <p>if 的条件不只接受 True / False，它还可以接受其他类型的值。Python 会自动把它们判断为“真”或“假”。这个行为叫真值测试。</p>
+                    <p>以下值在 if 语句中被当作 False：</p>
+                    <p>False</p>
+                    <p>None</p>
+                    <p>0（任何数值类型的 0：0、0.0、0j）</p>
+                    <p>空的序列或集合：""（空字符串）、[]（空列表）、()（空元组）、{}（空字典）、set()（空集合）</p>
+                    <p>剩下的，几乎全都是 True。 包括 " "（有空格）、[0]（有内容的列表）、负数等。</p>
+                    <p>这意味着你可以写很简洁的判断：</p>
+                    <pre><code class="language-python">name = input("你的名字：")
+if name:    
+    print(f"你好，{name}")
+else:    
+    print("你没有输入名字")</code></pre>
+                    <p>如果用户直接按回车，name 是空字符串 ""，被判断为 False，触发 else。这种写法在后续处理用户输入、检查数据是否为空时非常常见。</p>
+                    <h3>3.7 实战：写一个体重指数计算器（BMI）</h3>
+                    <p>这一章开头时我提过，学完判断就能做个小项目。现在来做。BMI 计算公式：BMI = 体重（kg）/ 身高²（m）。</p>
+                    <pre><code class="language-python">weight = float(input("请输入体重（公斤）："))
+height = float(input("请输入身高（米）："))
+bmi = weight / (height ** 2)
+print(f"你的 BMI 指数是：{bmi:.1f}")
+
+if bmi < 18.5:    
+    print("体重过轻")
+elif bmi < 24:    
+    print("正常范围")
+elif bmi < 28:    
+    print("超重")
+else:    
+    print("肥胖")</code></pre>
+                    <p>运行，输入 70 和 1.75，输出：</p>
+                    <pre><code class="language-python">你的 BMI 指数是：22.9
+正常范围</code></pre>
+                    <p>注意这里用了 {bmi:.1f}，表示保留1位小数显示。这是 format 语法的一种，第2章没讲，这里混个眼熟。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：input() 返回的是字符串。</strong><br/> 如果你忘了用 float() 或 int() 转换，height ** 2 就会报错，因为字符串不能进行数学运算。这是一个永无止境的坑——只要从 input() 拿东西做数学运算，先转换类型。</div>
+                    <h3>3.8 总结与下一步</h3>
+                    <p>这一章我们赋予了程序“思考”的能力。核心就三样东西：</p>
+                    <p>if / elif / else：建造条件岔路。</p>
+                    <p>缩进：Python 用来界定“谁属于谁”的语法。</p>
+                    <p>条件顺序：从上到下，先严格后宽松。</p>
+                    <p>你从“只输出”进化到了“能判断”。但程序现在还是很短，跑完就没了。下一章，我们进入循环——让程序反复做一件事，直到你喊停。你将学会处理待办列表、批量计算，以及如何避免让电脑陷入死循环。</p>
+                    <div class="bg-slate-100 rounded-lg p-6 mt-8 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-pen-to-square mr-2"></i>练习</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                            <li>用户输入一个整数，判断它是奇数还是偶数。（提示：用 % 取余数，能被2整除就是偶数）</li>
+                            <li>用户输入年份，判断是不是闰年。规则：能被4整除但不能被100整除，或者能被400整除。</li>
+                            <li>用户输入三个数，找出最大的那个并打印。（不用max()，用if-else自己实现。提示：先假设第一个是最大，然后逐个比）</li>
+                            <li>if "" 判断为真还是假？if " "（中间有空格）呢？用代码验证并解释结果。</li>
+                            <li>优化下面的代码，用 and 把嵌套拍平：</li>
+                        </ol>
+                        <pre><code class="language-python">score = int(input("分数："))
+if score >= 60:    
+    if score < 80:        
+        print("及格")</code></pre>
+                        <p class="text-sm text-slate-500 mt-2">6.建议完成「动手才是真的学」。</p>
+                    </div>
+                </section>
+
+                <!-- 第4章 -->
+                <section class="mb-16 scroll-mt-24" id="chapter-4">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">第4章 重复的事交给机器：循环的乐趣</h2>
+                    <p>上一章我们让程序学会了判断。但程序还有一个绝活：重复做一件事，不厌其烦，速度飞快。</p>
+                    <p>想想这些场景：打印1到100的所有数字、检查邮件列表里的每一个地址、计算全班50个学生的平均分……如果把同一段代码复制粘贴100遍，你肯定会疯。这就是循环存在的意义。</p>
+                    <p>这一章，我们学习两种循环：for 和 while。看完你就会写出第一个真正“像程序”的程序。</p>
+                    <h3>4.1 一个真实的问题：怎么做100个俯卧撑？</h3>
+                    <p>如果你想打印1到5，没有循环的时候得这样：</p>
+                    <pre><code class="language-python">print(1)
+print(2)
+print(3)
+print(4)
+print(5)</code></pre>
+                    <p>那1到100呢？复制粘贴会死人的。用 for 循环，一句话搞定：</p>
+                    <pre><code class="language-python">for i in range(1, 101):   
+    print(i)</code></pre>
+                    <p>for 循环的思维模型很简单：你有一串东西，从头到尾，挨个拿出来处理一遍。 就像老师在教室里点名发糖，点到谁就递给谁一块糖，一次一个，直到全班发完。</p>
+                    <h3>4.2 for 循环的结构拆解</h3>
+                    <pre><code class="language-python">for i in range(1, 6):    
+    print(i)</code></pre>
+                    <p>结构：</p>
+                    <p>for：关键字，宣告“我要开始遍历了”。</p>
+                    <p>i：变量名，每次从序列里取一个值，就贴在它上面。你可以叫它任何名字（n、x、item），但要有意义。</p>
+                    <p>in：告诉 Python “从后面的序列里取”。</p>
+                    <p>range(1, 6)：生成一个数字序列。range(起点, 终点) 生成从起点到终点-1 的数字（1, 2, 3, 4, 5）。</p>
+                    <p>冒号 : 和缩进的代码块：和 if 一样，缩进的部分是循环体，每次取到一个值就执行一遍。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：range(1, 6) 不包括 6。</strong><br/> Python 的 range 是“左闭右开”区间，包含起点，不包含终点。记住：range(n) 产生 n 个数，从 0 到 n-1。</div>
+                    <p>range 的几种用法：</p>
+                    <pre><code class="language-python">range(10) # 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 （给了终点，起点默认0）
+range(2, 10) # 2, 3, 4, 5, 6, 7, 8, 9 （给了起点和终点）
+range(2, 10, 2) # 2, 4, 6, 8 （给了起点、终点、步长）
+range(10, 0, -1) # 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 （倒着来）</code></pre>
+                    <h3>4.3 for 不只是遍历数字</h3>
+                    <p>for 真正的本事是遍历任何能“拆成一个一个”的东西。比如：</p>
+                    <p>遍历字符串：</p>
+                    <pre><code class="language-python">for char in "Python":    
+    print(char)</code></pre>
+                    <p>遍历列表：</p>
+                    <pre><code class="language-python">fruits = ["苹果", "香蕉", "橘子", "葡萄"]
+for fruit in fruits:    
+    print(f"我喜欢吃{fruit}")</code></pre>
+                    <p>列表我们下一章会细讲，这里你先混个眼熟——用方括号 [] 装起来的东西，for 能挨个拿出来。</p>
+                    <h3>4.4 while 循环：条件不满足就一直跑</h3>
+                    <p>for 适合“事先知道有几个东西要处理”的场景。但有时你不知道要跑多少遍，只知道“只要某个条件成立，就一直做”。这时候用 while：</p>
+                    <pre><code class="language-python">password = "123456"
+guess = ""
+while guess != password:    
+    guess = input("请输入密码：")
+print("密码正确，欢迎！")</code></pre>
+                    <p>while 的思维模型是一个老式打卡机：先检查条件，条件为真就进去跑一圈；回来再检查，还为真就再跑一圈……直到条件为假才离开。</p>
+                    <h3>4.5 死循环：一个必须认识的幽灵</h3>
+                    <p>while 有一个致命的陷阱：如果条件永远不会变假，程序就跑啊跑，永远不停——这就是死循环。</p>
+                    <p>更典型的死循环是忘了在循环里改变条件变量：</p>
+                    <pre><code class="language-python"># 死循环！x 永远是 1，条件永远成立
+x = 1
+while x < 10:    
+    print(x)    
+    # 忘了写 x = x + 1</code></pre>
+                    <p>如果碰到死循环，在命令行里按 Ctrl + C，可以强行终止。</p>
+                    <p>while 循环的安全三要素：</p>
+                    <p>1.循环前，初始条件变量要设好。</p>
+                    <p>2.循环里，条件变量一定要变。</p>
+                    <p>3.变化的方向迟早让条件变假。</p>
+                    <pre><code class="language-python">count = 0 # 1. 初始化
+while count < 5: # 2. 条件    
+    print(count)    
+    count += 1 # 3. 变量递进（+= 是 count = count + 1 的简写）</code></pre>
+                    <h3>4.6 break 和 continue：循环里的特权操作</h3>
+                    <p>break：立刻结束整个循环，头也不回。</p>
+                    <pre><code class="language-python"># 猜数字，猜对就退出
+answer = 7
+while True: # while True 是死循环，但里面有 break 就不怕    
+    guess = int(input("猜（1-10）："))    
+    if guess == answer:        
+        print("猜对了！")        
+        break # 退出循环    
+    print("不对，再试")</code></pre>
+                    <p>continue：跳过本次循环剩余部分，直接进入下一次。</p>
+                    <pre><code class="language-python"># 打印 1-10 里的奇数
+for i in range(1, 11):    
+    if i % 2 == 0: # 偶数        
+        continue # 跳过，不打印    
+    print(i)</code></pre>
+                    <h3>4.7 循环嵌套：循环里面套循环</h3>
+                    <p>和 if 能嵌套一样，循环也能嵌套。最经典的例子就是打印乘法口诀表：</p>
+                    <pre><code class="language-python">for i in range(1, 10):    
+    for j in range(1, i + 1):        
+        print(f"{j}×{i}={i*j}", end="\t")    
+    print() # 换行</code></pre>
+                    <p>内层循环完整执行一遍，外层循环才走一步。 就像一个老式钟表：秒针走一圈（内层），分针才跳一格（外层）。</p>
+                    <h3>4.8 实战：统计班级成绩</h3>
+                    <p>给你一个成绩列表，请计算平均分，并找出最高分和最低分。思路：先假设第一个成绩既是最高也是最低（打擂台），然后遍历逐一比较，发现更高的就更新，发现更低的也更新。</p>
+                    <pre><code class="language-python">scores = [88, 92, 67, 74, 85, 95, 78, 82, 90, 70]
+total = 0
+max_score = scores[0] # 先假设第一个是最高分
+min_score = scores[0] # 先假设第一个是最低分
+for score in scores:    
+    total += score # total = total + score 的简写    
+    if score > max_score:        
+        max_score = score    
+    if score < min_score:        
+        min_score = score
+count = len(scores) # len() 返回列表长度
+average = total / count
+print(f"平均分：{average:.1f}")
+print(f"最高分：{max_score}")
+print(f"最低分：{min_score}")</code></pre>
+                    <h3>4.9 for 和 while 怎么选？</h3>
+                    <table class="w-full text-sm border-collapse border border-slate-300 my-4">
+                        <thead><tr><th class="border border-slate-300 px-4 py-2 bg-slate-100">场景</th><th class="border border-slate-300 px-4 py-2 bg-slate-100">用什么</th></tr></thead>
+                        <tbody>
+                            <tr><td class="border border-slate-300 px-4 py-2">知道有几个东西，或遍历一个现成的序列</td><td class="border border-slate-300 px-4 py-2">for</td></tr>
+                            <tr><td class="border border-slate-300 px-4 py-2">不知道要跑几次，靠条件控制</td><td class="border border-slate-300 px-4 py-2">while</td></tr>
+                            <tr><td class="border border-slate-300 px-4 py-2">无限等用户输入，输入正确才走</td><td class="border border-slate-300 px-4 py-2">while True + break</td></tr>
+                        </tbody>
+                    </table>
+                    <p>一个经验法则：能用 for 就不要用 while。 for 更安全，不怕死循环。</p>
+                    <h3>4.10 总结与下一步</h3>
+                    <p>这一章，程序学会了“不厌其烦”：</p>
+                    <p>for：遍历序列，“有一个干一个”。</p>
+                    <p>while：条件控制，“满足条件就一直干”。</p>
+                    <p>break/continue：特殊时候的特权操作。</p>
+                    <p>死循环：`while` 的幽灵，三要素可防可控。</p>
+                    <p>你现在的工具箱：能用变量存东西，能用 `if` 做判断，能用循环批量处理。但要写的程序越来越长，如果类似功能重复出现，你又开始复制粘贴了。下一章，我们学习函数——给一段代码取名字，随叫随到。这是编程的第一个抽象能力。</p>
+                    <div class="bg-slate-100 rounded-lg p-6 mt-8 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>自检</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                            <li>用 for 循环打印 1 到 20 的所有偶数。</li>
+                            <li>用 while 循环实现：从 10 倒数到 1（包括1），然后打印“发射！”。</li>
+                            <li>写一个猜数字游戏：程序预设一个 1-100 之间的整数，用户猜，程序提示“大了”或“小了”，直到猜对退出。</li>
+                            <li>用 for 和 range 生成并打印“九九乘法表”的上三角部分。</li>
+                            <li>用户连续输入数字，输入空行（直接回车）时结束，然后打印这些数的总和与平均。（提示：input()返回空字符串就是按了回车；用while True + break）</li>
+                            <li>建议完成「动手才是真的学」。</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- 第5章 -->
+                <section class="mb-16 scroll-mt-24" id="chapter-5">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">第5章 组装你的第一套工具：函数</h2>
+                    <p>写到第四章，你能做判断，能写循环，能处理列表。你的程序已经能解决一些完整的小问题了。</p>
+                    <p>但你可能会隐约感到不安：代码开始变长，有些逻辑重复出现，你靠复制粘贴改几个数字撑着。如果需求一变，你得改三个地方，漏一个就是bug。如果程序有两百行，找都找不全。</p>
+                    <p>这就是函数要解决的问题。函数是编程的第一次抽象：给一段代码起个名字，想用的时候喊它一声就行，不必每次把代码再写一遍。</p>
+                    <p>这一章，我们学习如何打造自己的工具库。</p>
+                    <h3>5.1 一个真实的问题：为什么复制粘贴三次就该疯了？</h3>
+                    <p>拿BMI计算说事。上一章我们写了一小段代码，用户输入身高体重，程序弹出指数和评级。现在，你要在一个程序里算三个人的BMI，然后比较。</p>
+                    <p>没有函数的做法：把那段代码复制三遍，改变量名。代码会变成一坨灾难——又臭又长，想改一下评级的阈值得改三处。</p>
+                    <p>函数的思维是：把“计算BMI并返回评级”这件事当成一个黑盒子，你给身高体重，它给你结果。内部怎么算的，调用者不用管。</p>
+                    <p>数据流向示意：</p>
+                    <p>身高, 体重 → [ 函数：计算BMI ] → (BMI值, 评级)</p>
+                    <p>用函数之后，主程序变得只有几行，清晰得像目录。</p>
+                    <h3>5.2 定义和调用：给一段代码取名字</h3>
+                    <p>函数定义的语法：</p>
+                    <pre><code class="language-python">def 函数名():
+    """文档字符串（可选，但强烈建议）"""
+    缩进的代码块</code></pre>
+                    <p>调用就是“函数名()”。</p>
+                    <p>看一个最简单的例子：</p>
+                    <pre><code class="language-python">def greet():
+    """打印一句问候语"""
+    print("你好，欢迎！")
+greet()
+greet()</code></pre>
+                    <p>输出：</p>
+                    <pre><code class="language-python">你好，欢迎！
+你好，欢迎！</code></pre>
+                    <p>def是“define”的缩写，告诉Python：“我要定义一个函数了”。后面是函数名，然后是括号和冒号。缩进的代码是函数体，只有在调用时才会执行。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：定义和调用的区别。</strong>def这一行只是“登记”了一个函数，并不执行里面的代码。就像你把菜谱写下来，不等于菜做好了。只有写greet()时，Python才跑进函数里去执行。</div>
+                    <h3>5.3 参数：让函数能接受输入</h3>
+                    <p>greet()每次只能打同一句话，太死板。要让函数能对不同的人说不同的话，得给它开个“入口”——这就是参数。</p>
+                    <pre><code class="language-python">def greet(name):
+    """向指定的人打招呼"""
+    print(f"你好，{name}！")
+greet("张三")
+greet("李四")</code></pre>
+                    <p>输出：</p>
+                    <pre><code class="language-python">你好，张三！
+你好，李四！</code></pre>
+                    <p>括号里的name叫形参，调用时传进去的"张三"叫实参。调用时，实参被贴上了形参的标签，函数内部就能用这个标签。</p>
+                    <p>用我们第二章的“标签模型”来理解：greet("张三")相当于在函数内部执行了name = "张三"——给字符串对象"张三"贴了一个叫name的标签。</p>
+                    <p>函数可以有多个参数：</p>
+                    <pre><code class="language-python">def print_info(name, age, city):
+    """打印个人信息"""
+    print(f"{name}，{age}岁，来自{city}")
+print_info("张三", 25, "北京")</code></pre>
+                    <p>这行调用等价于在函数内部：</p>
+                    <p>• name = "张三"</p>
+                    <p>• age = 25</p>
+                    <p>• city = "北京"</p>
+                    <h3>5.4 返回值：让函数能输出结果</h3>
+                    <p>到现在，函数只是“干点啥”（打印）。真正有用的函数往往是“算点啥，把结果交出来”。这就是返回值。</p>
+                    <pre><code class="language-python">def add(a, b):
+    """返回两数之和"""
+    result = a + b
+    return result
+sum_result = add(3, 5)
+print(sum_result) # 8
+print(add(10, 20)) # 30</code></pre>
+                    <p>return做两件事：</p>
+                    <p>1.立刻结束函数的执行。</p>
+                    <p>2.把return后面的值交还给调用者。</p>
+                    <p>调用者通常会把返回值赋给一个变量，或者直接嵌入到表达式里。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：忘记return。</strong><br/>如果函数里没有return，它会默认返回None。看看这个错误：</div>
+                    <pre><code class="language-python">def add_wrong(a, b):
+    a + b # 算了，但没有return
+print(add_wrong(3, 5)) # None</code></pre>
+                    <p>算了是一回事，交出来是另一回事。如果没有return，计算结果就烂在函数肚子里，外面拿不到。</p>
+                    <p>函数可以返回多个值，实际上是用元组打包：</p>
+                    <pre><code class="language-python">def min_max(numbers):
+    """返回列表的最小值和最大值"""
+    return min(numbers), max(numbers)
+low, high = min_max([4, 7, 1, 9])
+print(f"最小：{low}，最大：{high}")</code></pre>
+                    <p>这算不上新语法，只是return之后跟了几个值，逗号分隔，实际上返回的是一个元组，赋值时自动解包。</p>
+                    <h3>5.5 无返回值的函数，其实是返回None</h3>
+                    <p>如果你写一个函数只负责打印，不return任何东西，它也返回了None：</p>
+                    <pre><code class="language-python">def say_hello():
+    print("hello")
+result = say_hello()
+print(result) # None</code></pre>
+                    <p>这意味着你可以把任何函数的结果赋给变量，但没return的就是None。在后面学条件判断时，如果误用这种函数返回值会出bug，但现在你心里有数就好。</p>
+                    <h3>5.6 文档字符串：写给未来自己看的信</h3>
+                    <p>你刚写了一个函数，三天后回来看，可能忘了它是干嘛的，参数什么意思。文档字符串（docstring）就是给函数写说明书。</p>
+                    <pre><code class="language-python">def bmi_calc(weight, height):
+    """
+    计算 BMI 指数并返回评级。
+    参数：
+        weight: 体重（公斤）
+        height: 身高（米）
+    返回：
+        bmi: 计算出的 BMI 数值（浮点数）
+        level: 评级字符串
+    """
+    bmi = weight / (height ** 2)
+    if bmi < 18.5:
+        level = "过轻"
+    elif bmi < 24:
+        level = "正常"
+    elif bmi < 28:
+        level = "超重"
+    else:
+        level = "肥胖"
+    return bmi, level</code></pre>
+                    <p>三引号包起来的多行字符串就是文档字符串。它放在函数体第一行，是Python的约定。你可以用help()查看它：</p>
+                    <pre><code class="language-python">help(bmi_calc)</code></pre>
+                    <p>会打印出你写的说明书。从现在开始，每个函数都写docstring，哪怕只有一行。将来你会感谢自己。</p>
+                    <h3>5.7 参数的几种形态</h3>
+                    <p><strong>【位置参数】</strong> 最常见的按顺序传参：</p>
+                    <pre><code class="language-python">def describe(name, age):
+    print(f"{name}，{age}岁")
+describe("王五", 30) # name="王五", age=30</code></pre>
+                    <p>实参和形参的位置一一对应。这是位置参数。</p>
+                    <p><strong>【关键字参数】</strong> 你也可以在调用时指名道姓，不用管顺序：</p>
+                    <pre><code class="language-python">describe(age=30, name="王五") # 效果一样</code></pre>
+                    <p>age=30, name="王五"就是关键字参数。它们让调用更清晰，尤其参数多的时候。</p>
+                    <p>位置参数和关键字参数可以混用，但位置参数必须在关键字参数前面：</p>
+                    <pre><code class="language-python">describe("王五", age=30) # 正确
+describe(name="王五", 30) # 报错！位置参数不能在关键字参数后面</code></pre>
+                    <p><strong>【默认参数】</strong> 有时候，大多数调用都用同一个值，只有少数情况例外。你可以给参数设默认值：</p>
+                    <pre><code class="language-python">def greet(name, greeting="你好"):
+    print(f"{greeting}，{name}！")
+greet("张三") # 你好，张三！
+greet("Tom", greeting="Hello") # Hello，Tom！</code></pre>
+                    <p>greeting="你好"是默认值。调用时不传，就用默认的；传了就覆盖。</p>
+                    <div class="callout callout-danger"><strong>新手坑位（进阶）：默认参数不要用列表或字典。</strong><br/>进阶说明：如果默认值必须是列表，用 None 加 if 判断来构造新列表。现在先记住"默认参数别用[]"即可。</div>
+                    <pre><code class="language-python"># 危险写法
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+# 安全写法
+def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items</code></pre>
+                    <p>原因与“标签”和可变对象有关，第6章讲完列表后再回头看会豁然开朗。现在只需记住纪律。</p>
+                    <h3>5.8 作用域初探：函数内外是两套世界</h3>
+                    <p>在函数里定义的变量，外面看不见：</p>
+                    <pre><code class="language-python">def my_func():
+    x = 10
+    print(x) # 10
+my_func()
+print(x) # NameError: name 'x' is not defined</code></pre>
+                    <p>函数里的x是局部变量，只在函数内部有效。函数一结束，它就被回收。</p>
+                    <p>反过来说，函数外面定义的变量，里面能读：</p>
+                    <pre><code class="language-python">y = 20
+def show():
+    print(y) # 20
+show()</code></pre>
+                    <p>但如果想在函数里修改外面的变量，得用global关键字声明，否则Python会认为你定义了一个新的局部变量：</p>
+                    <pre><code class="language-python">counter = 0
+def increment():
+    global counter
+    counter += 1
+increment()
+print(counter) # 1</code></pre>
+                    <p>我的建议：初学阶段，尽量避免用global。用参数把值传进去，用return把结果传出来。这样函数是独立的，调试容易，逻辑清晰。global会让数据流向变得杂乱，只在很特殊的情况下用。</p>
+                    <h3>5.9 实战：把BMI计算器封装成工具函数</h3>
+                    <p>我们之前写的BMI代码混在一起，现在把它重构为函数：</p>
+                    <pre><code class="language-python">def calculate_bmi(weight, height):
+    """
+    计算 BMI 指数。
+    参数：
+        weight: 体重（公斤）
+        height: 身高（米）
+    返回：
+        bmi 数值（浮点数）
+    """
+    return weight / (height ** 2)
+
+def get_bmi_level(bmi):
+    """
+    根据 BMI 数值返回评级。
+    参数：
+        bmi: BMI 数值
+    返回：
+        评级字符串
+    """
+    if bmi < 18.5:
+        return "过轻"
+    elif bmi < 24:
+        return "正常"
+    elif bmi < 28:
+        return "超重"
+    else:
+        return "肥胖"
+
+def print_bmi_report(name, weight, height):
+    """打印一份 BMI 报告"""
+    bmi = calculate_bmi(weight, height)
+    level = get_bmi_level(bmi)
+    print(f"{name}：BMI {bmi:.1f}，{level}")
+
+#主程序
+print_bmi_report("张三", 70, 1.75)
+print_bmi_report("李四", 85, 1.80)
+print_bmi_report("王五", 55, 1.65)</code></pre>
+                    <p>输出：</p>
+                    <pre><code class="language-python">张三：BMI 22.9，正常
+李四：BMI 26.2，超重
+王五：BMI 20.2，正常</code></pre>
+                    <p>这个结构有几个好处：</p>
+                    <p>1.单一职责：每个函数只做一件事。calculate_bmi只管算数，不管评级。get_bmi_level只管评级，不管打印。</p>
+                    <p>2.可测试：你可以单独调用calculate_bmi检查计算结果，不用跑整个报告。</p>
+                    <p>3.可复用：以后任何地方要用BMI评级，直接import这个模块就行（第10章细说），不用再写一遍。</p>
+                    <h3>5.10 总结与下一步</h3>
+                    <p>这一章，我们学会了把代码装进盒子里，贴上标签。</p>
+                    <p>def定义函数，函数名()调用。</p>
+                    <p>参数给函数开入口（位置、关键字、默认值）。</p>
+                    <p>return给函数开出口。</p>
+                    <p>文档字符串是写给人看的说明书。</p>
+                    <p>作用域告诉我们函数内外的变量互不干扰。</p>
+                    <p>函数封装让代码模块化、可复用、好维护。</p>
+                    <p>从现在开始，你写的每一个稍大的程序，都应该想：能不能拆成函数？每个函数只做一件事，名字写清楚，别人（包括未来的你自己）一看就懂。</p>
+                    <p>下一章，我们要深入Python最常用的数据结构——列表、元组、字典、集合。它们是你处理批量数据的利器。同时，你对变量的“标签模型”将在那里得到完整验证。</p>
+                    <div class="bg-slate-100 rounded-lg p-6 mt-8 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>自检</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                            <li>写一个函数is_even(n)，判断一个整数是否为偶数，是返回True，否返回False。然后用它打印1到20的所有偶数。</li>
+                            <li>写一个函数max_of_three(a, b, c)，返回三个数中的最大值。不要用内置的max()函数。</li>
+                            <li>写一个函数print_multiplication_table(n)，打印n的乘法口诀（1×n到9×n）。用for循环实现。</li>
+                            <li>写一个函数count_vowels(s)，统计字符串s中元音字母（a, e, i, o, u）的个数（忽略大小写），返回个数。（提示：先用s.lower()转小写再统计）</li>
+                            <li>把上一章的猜数字游戏改写成函数版本：定义guess_number(answer)，在函数内部实现用户交互，直到猜对退出。主程序只写guess_number(42)即可运行。</li>
+                            <li>建议完成「动手才是真的学」。</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- 第6章 -->
+                <section class="mb-16 scroll-mt-24" id="chapter-6">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">第6章 数据的家：列表、元组、字典、集合深入</h2>
+                    <p>你已经能写函数，能处理少数几个变量。但现实中的数据往往是一堆一堆来的——全班同学的成绩、购物车里的商品、通讯录里的联系人。你需要能装很多个东西的容器。</p>
+                    <p>Python给这类“批量数据”准备了四套容器：列表、元组、字典、集合。它们各有脾气，选对容器能让代码又短又快，选错则平白多出很多麻烦。</p>
+                    <p>这一章我们把这四样东西讲深讲透。你甚至会自己实现一个简单通讯录。</p>
+                    <h3>6.1 列表：最自由的序列</h3>
+                    <p>列表是最常用的容器。它用方括号[]包裹，里面的元素用逗号隔开：</p>
+                    <pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
+fruits = ["苹果", "香蕉", "橘子"]
+mixed = [1, "hello", True, None] # 可以混装不同类型</code></pre>
+                    <h4>6.1.1 索引和切片：精准定位</h4>
+                    <p>列表是有序的。每个元素都有一个编号——索引，从0开始。</p>
+                    <pre><code class="language-python">letters = ["a", "b", "c", "d", "e"]
+print(letters[0]) # a
+print(letters[2]) # c
+print(letters[-1]) # e （负数从右往左数，-1 是最后一个）</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：索引从0开始，不是1。</strong>几乎所有编程语言都这样，因为计算机内部偏移量就是从0算起的。如果你取letters[5]，会报IndexError: list index out of range，因为最大索引是4。</div>
+                    <p>切片能取出一段子列表，语法是[起点:终点:步长]，和range一样左闭右开：</p>
+                    <pre><code class="language-python">print(letters[1:4]) # ['b', 'c', 'd'] （索引 1 到 3）
+print(letters[:3]) # ['a', 'b', 'c'] （省略起点，默认从0）
+print(letters[2:]) # ['c', 'd', 'e'] （省略终点，默认到末尾）
+print(letters[::2]) # ['a', 'c', 'e'] （步长2）
+print(letters[::-1]) # ['e', 'd', 'c', 'b', 'a'] （反转）</code></pre>
+                    <p>切片不会修改原列表，而是生成一个新列表。</p>
+                    <h4>6.1.2 修改、增加、删除</h4>
+                    <p>列表是可变的，你可以动它的内部元素：</p>
+                    <pre><code class="language-python">nums = [10, 20, 30]
+nums[1] = 25 # 直接赋值修改
+print(nums) # [10, 25, 30]</code></pre>
+                    <p>增加元素的方法：</p>
+                    <pre><code class="language-python">nums.append(40) # 尾部追加一个
+nums.insert(1, 15) # 在索引 1 处插入 15
+nums.extend([50,60]) # 尾部扩展多个元素</code></pre>
+                    <p>删除元素：</p>
+                    <pre><code class="language-python">del nums[2] # 按索引删
+nums.remove(30) # 按值删（删第一个找到的）
+popped = nums.pop() # 弹出最后一个，返回值给你
+popped2 = nums.pop(0) # 弹出索引 0 的元素
+nums.clear() # 清空</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：remove只删第一个匹配值，如果值不存在会报错。</strong>删之前最好用in检查一下，或者用try/except兜底（第7章会讲）。</div>
+                    <h4>6.1.3 列表推导式：一行生成列表</h4>
+                    <p>如果你想生成一个1到10的平方列表，可能会这样写：</p>
+                    <pre><code class="language-python">squares = []
+for i in range(1, 11):
+    squares.append(i ** 2)</code></pre>
+                    <p>Python提供了一种更简洁的写法——列表推导式：</p>
+                    <pre><code class="language-python">squares = [i ** 2 for i in range(1, 11)]</code></pre>
+                    <p>语法：[表达式 for 变量 in 可迭代对象]，还能加if过滤：</p>
+                    <pre><code class="language-python">even_squares = [i ** 2 for i in range(1, 11) if i % 2 == 0]
+#[4, 16, 36, 64, 100]</code></pre>
+                    <p>列表推导式执行快，表达力强，但不要让它变得太复杂——如果逻辑超过一层循环加一层判断，拆成普通循环反而更可读。</p>
+                    <h3>6.2 元组：不可变的序列</h3>
+                    <p>元组和列表长得几乎一样，只是用圆括号()而非方括号：</p>
+                    <pre><code class="language-python">point = (3, 4)
+rgb = (255, 128, 0)</code></pre>
+                    <p>核心区别：元组不可变。一旦创建，不能修改、不能增加、不能删除。下面的操作全都会报错：</p>
+                    <pre><code class="language-python">point[0] = 10 # TypeError: 'tuple' object does not support item assignment</code></pre>
+                    <p>那为什么要用它？两个好处：</p>
+                    <p>1.安全性：你不希望某个数据在传递过程中被意外篡改时，就用元组。比如函数的配置参数、坐标点。</p>
+                    <p>2.性能：元组比列表轻量，处理更快。如果你有一堆不需要改的数据，用元组更省内存。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：单元素元组必须加逗号。</strong><br/>(42)被Python解析为括号里的整数42，而不是元组。要写成(42,)才算只有一个元素的元组。这个小细节经常让人莫名其妙。</div>
+                    <p>元组支持索引和切片，用法和列表一样，只是不能修改。</p>
+                    <p><strong>【元组解包】</strong> 非常方便的一个特性：</p>
+                    <pre><code class="language-python">point = (3, 4)
+x, y = point
+print(x) # 3
+print(y) # 4</code></pre>
+                    <p>这个技巧也适用于列表：</p>
+                    <pre><code class="language-python">colors = ["red", "green", "blue"]
+r, g, b = colors</code></pre>
+                    <p>交换两个变量值，不用中间变量：</p>
+                    <pre><code class="language-python">a, b = b, a</code></pre>
+                    <p>这背后其实是元组解包的功劳：右边b, a构成了一个临时元组，然后解包给a, b。</p>
+                    <h3>6.3 字典：现实世界的映射表</h3>
+                    <p>列表和元组按顺序装数据。但生活中更常见的是名字对应值：人名对应电话号码，商品名对应价格，水果对应库存数量。字典就是做这个的。</p>
+                    <p>字典用花括号{}，里面是键:值对：</p>
+                    <pre><code class="language-python">person = {
+    "name": "张三",
+    "age": 25,
+    "city": "北京"
+}</code></pre>
+                    <p>键通常是字符串，值可以是任何对象。通过键来获取值，而不是索引：</p>
+                    <pre><code class="language-python">print(person["name"]) # 张三
+print(person["age"]) # 25</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：访问不存在的键会报KeyError。</strong>如果你不确定键在不在，用get方法更安全：</div>
+                    <pre><code class="language-python">print(person.get("phone", "N/A")) # N/A，不存在时返回默认值</code></pre>
+                    <p>【字典的增删改查】</p>
+                    <pre><code class="language-python">person["phone"] = "123456" # 新增键值对 
+person["age"] = 26 # 修改 
+del person["city"] # 删除 
+print(person.keys()) # dict_keys(['name', 'age', 'phone']) 
+print(person.values()) # dict_values(['张三', 26, '123456']) 
+print(person.items()) </code></pre>
+                    <p>遍历字典：</p>
+                    <pre><code class="language-python">for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
+                    <p>【字典推导式】 和列表推导式类似，可以快速生成字典：</p>
+                    <pre><code class="language-python">squares = {x: x**2 for x in range(1, 6)}
+#{1:1, 2:4, 3:9, 4:16, 5:25}</code></pre>
+                    <h3>6.4 集合：不重复的无序容器</h3>
+                    <p>集合是数学里“集合”的体现：没有重复元素，没有顺序。用花括号或set()创建：</p>
+                    <pre><code class="language-python">fruits = {"苹果", "香蕉", "橘子", "苹果"}
+print(fruits) # {'橘子', '香蕉', '苹果'} （不重复，顺序不定）</code></pre>
+                    <p>【集合的核心用途：去重和成员检查】 去重非常简单：</p>
+                    <pre><code class="language-python">nums = [1, 2, 2, 3, 3, 3]
+unique_nums = list(set(nums)) # [1, 2, 3]</code></pre>
+                    <p>检查一个元素是否存在，集合比列表快得多（内部是哈希表）：</p>
+                    <pre><code class="language-python">if "苹果" in fruits:
+    print("有苹果")</code></pre>
+                    <p>【集合运算】 你可以做数学里的集合运算：交集&，并集|，差集-，对称差集^：</p>
+                    <pre><code class="language-python">a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print(a & b) # {3, 4}
+print(a | b) # {1, 2, 3, 4, 5, 6}
+print(a - b) # {1, 2}
+print(a ^ b) # {1, 2, 5, 6}</code></pre>
+                    <p>集合推导式：</p>
+                    <pre><code class="language-python">s = {x ** 2 for x in range(5)} # {0, 1, 4, 9, 16}</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位：空花括号{}是字典，不是集合。</strong>创建空集合只能用set()。</div>
+                    <h3>6.5 四种容器对比与选择</h3>
+                    <table class="w-full text-sm border-collapse border border-slate-300 my-4">
+                        <thead><tr><th class="border border-slate-300 px-4 py-2 bg-slate-100">容器</th><th class="border border-slate-300 px-4 py-2 bg-slate-100">特点</th><th class="border border-slate-300 px-4 py-2 bg-slate-100">主要用途</th></tr></thead>
+                        <tbody>
+                            <tr><td class="border border-slate-300 px-4 py-2">列表(list)</td><td class="border border-slate-300 px-4 py-2">有序，可变，允许重复</td><td class="border border-slate-300 px-4 py-2">顺序存储、遍历</td></tr>
+                            <tr><td class="border border-slate-300 px-4 py-2">元组(tuple)</td><td class="border border-slate-300 px-4 py-2">有序，不可变，允许重复</td><td class="border border-slate-300 px-4 py-2">安全传递、坐标</td></tr>
+                            <tr><td class="border border-slate-300 px-4 py-2">字典(dict)</td><td class="border border-slate-300 px-4 py-2">保持插入序，可变，键不允许重复</td><td class="border border-slate-300 px-4 py-2">名称到值的映射</td></tr>
+                            <tr><td class="border border-slate-300 px-4 py-2">集合(set)</td><td class="border border-slate-300 px-4 py-2">无序，可变，不允许重复</td><td class="border border-slate-300 px-4 py-2">去重、集合运算</td></tr>
+                        </tbody>
+                    </table>
+                    <p>选择建议：</p>
+                    <p>1.需要顺序存储，数据可能变 → 列表</p>
+                    <p>2.需要保护数据不被改，或作为字典键 → 元组（不可变才能当键）</p>
+                    <p>3.通过名字访问数据 → 字典</p>
+                    <p>4.去重、检查存在、求交集 → 集合</p>
+                    <h3>6.6 深入理解：标签模型与可变对象</h3>
+                    <p>第二章我们强调变量是标签，不是盒子。现在有了列表，这个区别终于要显露威力了。</p>
+                    <pre><code class="language-python">a = [1, 2, 3]
+b = a
+b.append(4)
+print(a) # [1, 2, 3, 4]</code></pre>
+                    <p>为什么改了b，a也变了？因为a和b两个标签都贴在同一个列表对象上。b.append(4)是让那个列表对象增加了元素，两个标签都指向这个已经变化了的对象。</p>
+                    <p>如果把b重新绑定到新列表，a不受影响：</p>
+                    <pre><code class="language-python">b = [5, 6, 7]
+print(a) # [1, 2, 3, 4]</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位（进阶）：默认参数不要用列表或字典作为默认值。</strong></div>
+                    <h3>6.7 实战：写一个简单通讯录</h3>
+                    <p>要求：可以用名字添加电话号码，可以查询，可以列出所有联系人。</p>
+                    <pre><code class="language-python">def add_contact(contacts, name, phone):
+    """添加或更新联系人"""
+    contacts[name] = phone
+    print(f"已保存：{name} -> {phone}")
+
+def find_contact(contacts, name):
+    """查询联系人，返回电话号码或提示"""
+    return contacts.get(name, "未找到该联系人")
+
+def show_all(contacts):
+    """显示全部联系人"""
+    if not contacts:
+        print("通讯录为空")
+    else:
+        for name, phone in contacts.items():
+            print(f"{name}: {phone}")
+
+#主程序
+phonebook = {}
+while True:
+    action = input("操作：添加(1)/查询(2)/全部(3)/退出(0)：")
+    if action == "1":
+        name = input("姓名：")
+        phone = input("电话：")
+        add_contact(phonebook, name, phone)
+    elif action == "2":
+        name = input("姓名：")
+        print(find_contact(phonebook, name))
+    elif action == "3":
+        show_all(phonebook)
+    elif action == "0":
+        break
+    else:
+        print("无效操作")</code></pre>
+                    <h3>6.8 总结与下一步</h3>
+                    <p>这一章你掌握了Python的四大容器：列表、元组、字典、集合。它们是你数据处理的基石。</p>
+                    <p>列表：有序可变，最常用。</p>
+                    <p>元组：有序不可变，安全高效。</p>
+                    <p>字典：键值映射，查找飞快。</p>
+                    <p>集合：无序无重复，运算强大。</p>
+                    <p>下一章，我们将学习文件和异常处理。你的程序不再只是运行完就消失，而是能读写真实文件，保存数据，并且优雅地应对各种意外情况。</p>
+                    <div class="bg-slate-100 rounded-lg p-6 mt-8 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>自检</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                            <li>创建一个列表，包含数字1到10，用推导式生成它们的立方组成的列表。</li>
+                            <li>有一个列表nums = [3, 5, 2, 8, 2, 5, 1, 3]，用集合去重并保留唯一元素。</li>
+                            <li>创建一个字典，键为"apple"、"banana"、"cherry"，值为对应的库存数量，然后依次打印每种水果的库存。</li>
+                            <li>写一个函数common_elements(list1, list2)，返回两个列表的公共元素（不重复），用集合实现。（提示：set(list1) & set(list2)）</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- 第7章 -->
+                <section class="mb-16 scroll-mt-24" id="chapter-7">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">第7章 文件与异常：跟外部世界对话</h2>
+                    <p>你写的程序已经能计算、判断、循环、处理列表和字典。但每次运行结束，所有数据都消失得无影无踪。你肯定想要保存结果——把数据写进文件，下次运行时再读出来。</p>
+                    <p>同时，程序不可能总在理想环境下运行。文件可能不存在，用户可能输入奇怪的东西，网络可能断开。如果程序一碰到意外就崩溃，那它永远谈不上“能用”。</p>
+                    <p>这一章，我们学习两样让程序从“玩具”变成“工具”的本事：文件读写和异常处理。学完你能写出能保存数据的程序，而且它不会动不动就炸。</p>
+                    <h3>7.1 为什么需要文件和异常？</h3>
+                    <p>没有文件能力的数据处理，就像用粉笔在黑板上演算——一擦就没。有了文件，你的程序可以把结果存成.txt、.csv，下次启动再读回来。日志文件、配置文件、用户数据，几乎一切持久化都靠文件。</p>
+                    <p>没有异常处理的程序，就像走路不看脚下。用户输错一个字符，或者文件被移动了位置，整个程序立刻崩溃，甩一堆红字给用户。异常处理就是给程序铺安全网：出事了能兜住，给出友好提示，甚至可以尝试恢复。</p>
+                    <h3>7.2 打开文件：建立跟外部世界的通道</h3>
+                    <p>Python打开文件用open()函数，它返回一个文件对象，你可以通过这个对象读或写。</p>
+                    <pre><code class="language-python">f = open("test.txt", "r") # 以只读模式打开</code></pre>
+                    <p>"r"是模式（mode），常见的有：</p>
+                    <p>"r"：只读。文件不存在时报错。</p>
+                    <p>"w"：只写（清空已有内容）。文件不存在时创建新文件。</p>
+                    <p>"a"：追加（从末尾接着写）。文件不存在时创建新文件。</p>
+                    <p>"r+"：读写。文件不存在时报错。</p>
+                    <p>默认就是"r"，所以open("test.txt")和open("test.txt", "r")一样。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：路径问题。</strong><br/>如果只给文件名，Python在当前工作目录找。VSCode的当前目录是终端打开的文件夹。文件找不到就报FileNotFoundError。建议先用绝对路径或确保文件在正确位置。你也可以用os.getcwd()查看当前目录。</div>
+                    <p>打开后，记得关闭文件：</p>
+                    <pre><code class="language-python">f.close()</code></pre>
+                    <p>不关的话，可能造成数据没完全写入、系统资源占用等奇怪问题。但手动关闭很容易忘，所以Python提供了更安全的with语句。</p>
+                    <h3>7.3 with语句：自动关门的管家</h3>
+                    <p>with语句会在代码块执行完自动关闭文件，即使中间出了异常也能正确关闭：</p>
+                    <pre><code class="language-python">with open("test.txt", "r") as f:
+    content = f.read()
+    print(content)
+#出了这个缩进，文件已经关闭了</code></pre>
+                    <p>从今往后，只使用with来打开文件。习惯成自然，你不再需要操心close()。</p>
+                    <h3>7.4 读文件：把文件内容变成字符串或列表</h3>
+                    <p>文件对象提供几种读取方法。</p>
+                    <p>read() 一次性全读</p>
+                    <pre><code class="language-python">with open("test.txt", "r") as f:
+    content = f.read()
+    print(content)</code></pre>
+                    <p>read()把整个文件读成一个字符串，适合小文件。如果文件有几个GB，猛一下全读进内存可能会炸，这时候需要一行一行读。</p>
+                    <p>readline() 读一行</p>
+                    <p>每次调用读一行，返回的字符串包括行末的换行符\n：</p>
+                    <pre><code class="language-python">with open("test.txt", "r") as f:
+    first = f.readline()
+    second = f.readline()
+    print(repr(first)) # repr 能看到 \n 等转义字符</code></pre>
+                    <p>readlines() 全读成列表</p>
+                    <p>每一行作为列表的一个元素：</p>
+                    <pre><code class="language-python">with open("test.txt", "r") as f:
+    lines = f.readlines()
+print(lines) # ['第一行\n', '第二行\n', '第三行\n']</code></pre>
+                    <p>直接迭代文件对象（最常用）</p>
+                    <p>文件对象本身就是可迭代的，for循环自动逐行读取，内存占用小：</p>
+                    <pre><code class="language-python">with open("test.txt", "r") as f:
+    for line in f:
+        print(line.strip()) # strip() 去掉行末的换行符和空白</code></pre>
+                    <p>这是处理大文件的推荐方式。</p>
+                    <h3>7.5 写文件：把程序的成果存下来</h3>
+                    <p>模式"w"或"a"打开后，用write()或print()写入。</p>
+                    <pre><code class="language-python">#写模式：会覆盖已有内容
+with open("output.txt", "w") as f:
+    f.write("第一行\n")
+    f.write("第二行\n")</code></pre>
+                    <p>如果要保留原有内容并在后面追加，用"a"模式：</p>
+                    <pre><code class="language-python">with open("output.txt", "a") as f:
+    f.write("这是追加的一行\n")</code></pre>
+                    <p>print()也可以写到文件，用file参数：</p>
+                    <pre><code class="language-python">with open("output.txt", "w") as f:
+    print("用 print 写文件", file=f)</code></pre>
+                    <div class="callout callout-danger"><strong>新手坑位："w"会清空原有数据。</strong><br/>如果不小心对一个重要文件用了"w"而不是"a"，数据就丢了。写之前一定要确认模式对不对。</div>
+                    <h3>7.6 异常处理：给程序上保险</h3>
+                    <p>文件找到没？用户输入的是数字吗？网络还在吗？这些问题用if判断往往不够，因为错误可能在很深的底层发生。Python的异常机制提供了统一处理方案。</p>
+                    <p>【基本语法：try-except】</p>
+                    <pre><code class="language-python">try:
+    num = int(input("请输入数字："))
+    print(f"你输入了 {num}")
+except ValueError:
+    print("那不是数字！")</code></pre>
+                    <p>如果try块里的代码抛出ValueError（比如输入"abc"），程序不会崩溃，而是跳到except块执行。</p>
+                    <p>一个try可以对应多个except，处理不同异常类型：</p>
+                    <pre><code class="language-python">try:
+    x = int(input("第一个数："))
+    y = int(input("第二个数："))
+    print(x / y)
+except ValueError:
+    print("请输入整数")
+except ZeroDivisionError:
+    print("不能除以零")</code></pre>
+                    <p>【抓住异常对象】 有时候你想知道具体错误信息：</p>
+                    <pre><code class="language-python">try:
+    with open("不存在.txt", "r") as f:
+        content = f.read()
+except FileNotFoundError as e:
+    print(f"文件没找到：{e}")</code></pre>
+                    <p>e是异常对象，包含错误描述。</p>
+                    <p>【finally：无论如何都执行】 finally块里的代码，无论是否发生异常，是否return，都会执行。常用来做清理工作：</p>
+                    <pre><code class="language-python">f = None
+try:
+    f = open("test.txt", "r")
+    content = f.read()
+except FileNotFoundError:
+    print("文件不存在")
+finally:
+    if f:
+        f.close()</code></pre>
+                    <p>不过，如果你用with，连finally都省了——with会自动调用关闭。</p>
+                    <p>【何时用异常，何时用if？】 经验法则：</p>
+                    <p>1.如果错误可预期且能直接检查，用if。比如if s == ""检查空输入。</p>
+                    <p>2.如果错误不可预期、涉及外部资源、操作是否成功需要实际尝试，用try-except。比如打开文件、网络请求、数据库写入。</p>
+                    <h3>7.7 实战：统计小说词频</h3>
+                    <p>我们来一个完整实战：读入一本小说文本文件，统计每个单词出现的次数，输出前20个高频词。</p>
+                    <pre><code class="language-python">import string
+
+def count_words(filename):
+    word_counts = {}
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.lower()
+                line = line.translate(str.maketrans("", "", string.punctuation))
+                words = line.split()
+                for word in words:
+                    word_counts[word] = word_counts.get(word, 0) + 1
+    except FileNotFoundError:
+        print(f"文件 {filename} 不存在")
+        return {}
+    return word_counts
+
+def top_words(word_counts, n=20):
+    sorted_items = sorted(word_counts.items(), key=lambda x: x[1], reverse=True)
+    return sorted_items[:n]
+
+if __name__ == "__main__":
+    filename = "novel.txt"
+    counts = count_words(filename)
+    if counts:
+        top = top_words(counts, 20)
+        for word, freq in top:
+            print(f"{word}: {freq}")</code></pre>
+                    <p>代码解读：string.punctuation是标点符号集合。maketrans和translate配合用于删除标点。word_counts.get(word, 0) + 1是字典计数惯用法。按出现次数排序这个操作你现在只需要知道它能用，具体语法（lambda）你可以自行学习。文件用encoding="utf-8"明确编码，避免中文乱码。</p>
+                    <div class="callout callout-danger"><strong>新手坑位：编码问题。</strong><br/>Windows上文本文件有时是GBK编码，直接utf-8打开会报UnicodeDecodeError。如果你遇到，可以尝试encoding="gbk"或errors="ignore"。最好保存文件时统一用UTF-8编码。</div>
+                    <h3>7.8 常见异常清单</h3>
+                    <p>你迟早会碰到这些，先认一认：</p>
+                    <p>FileNotFoundError：文件不存在</p>
+                    <p>ValueError：类型转换失败，如int("abc")</p>
+                    <p>ZeroDivisionError：除以零</p>
+                    <p>TypeError：对不支持的类型做操作，如"a" + 5</p>
+                    <p>IndexError：列表索引超出范围</p>
+                    <p>KeyError：字典键不存在</p>
+                    <p>NameError：使用未定义的变量</p>
+                    <p>SyntaxError：代码语法错误（运行前就报）</p>
+                    <p>IndentationError：缩进错误</p>
+                    <p>SyntaxError和IndentationError是程序跑之前就报的，不能用try-except捕获，需要你自己检查代码。</p>
+                    <h3>7.9 总结与下一步</h3>
+                    <p>这一章，你的程序首次迈出自己的一亩三分地，跟外部文件打交道：</p>
+                    <p>open()和模式r/w/a：建立通道。</p>
+                    <p>with语句：让文件安全自动关闭。</p>
+                    <p>读：read()、readline()、直接迭代。</p>
+                    <p>写：write()和print(..., file=...)。</p>
+                    <p>异常处理try-except-finally：兜住意外，优雅崩溃或恢复。</p>
+                    <p>实战：用字典做词频统计，这是很多文本分析的基础。</p>
+                    <p>你的程序现在能记住数据，也能抗住失误。下一章，我们将学习面向对象编程——把数据和操作封装成类和对象。这是Python最重要的组织思想，你之前用的字符串、列表，本质上全都是对象。我们要开始自己设计对象了。</p>
+                    <div class="bg-slate-100 rounded-lg p-6 mt-8 border border-slate-200">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>自检</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                            <li>写一个程序，让用户输入多行文字（空行结束），保存到notes.txt，然后读出来显示。</li>
+                            <li>修改上面的程序，如果notes.txt已有内容，新输入的内容追加到末尾，而不是覆盖。</li>
+                            <li>写一个函数safe_divide(a, b)，返回a/b的结果。如果b是0或者传入的不是数字，捕获异常并返回None。</li>
+                            <li>读取一个文本文件（自己创建），统计总行数、总单词数、总字符数（类似wc命令）。（提示：逐行读取，len(line)统计字符数，line.split()统计单词数）</li>
+                            <li>用try-except读取一个不存在的文件，捕获FileNotFoundError并打印友好提示。</li>
+                            <li>建议完成「动手才是真的学」。</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- 附录A -->
+                <section class="mb-16 scroll-mt-24" id="appendix-a">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">附录A GitHub 共享指南</h2>
+                    <p>你写的代码，如果不分享出去，就像一本锁在抽屉里的日记——只有自己知道它有多精彩。GitHub 是全世界最大的代码托管平台，它不只能存代码，更是一个协作平台和个人名片。你把代码推上去，别人就能看到、使用、甚至帮你改进。找工作时，一个活跃的 GitHub 主页胜过千言万语。</p>
+                    <p>这份指南假设你从未用过 Git 或 GitHub。我们从零开始，把最核心的操作串一遍：从安装 Git，到把你的项目推上 GitHub，再到从别人那里拉取更新。全程跟着做，半小时你就能拥有自己的第一个开源仓库。</p>
+                    <h3>A.1 Git 和 GitHub：一个是工具，一个是平台</h3>
+                    <p>很多人把 Git 和 GitHub 混为一谈，但它们不是一回事。</p>
+                    <p><strong>Git</strong> 是一个版本控制系统。它安装在你的电脑上，负责跟踪文件的每一次修改。你可以随时回退到三天前的版本，可以同时开多条开发线而互不干扰。</p>
+                    <p><strong>GitHub</strong> 是一个网站，提供 Git 仓库的远程托管服务。你把本地 Git 仓库的“快照”推送（push）到 GitHub 上，别人就能看到和下载。</p>
+                    <p>简单说：Git 是本地版本管理工具，GitHub 是远程协作平台。 类似的平台还有 GitLab、Gitee。</p>
+                    <h3>A.2 安装 Git</h3>
+                    <p>去 git-scm.com 下载安装包。安装过程中一路默认即可。有一个选项 “Git Bash Here” 非常有用，它会给你一个模拟 Linux 风格命令行——本书后面命令都在 Git Bash 里执行。</p>
+                    <pre><code class="language-bash">git --version</code></pre>
+                    <p>看到类似 git version 2.44.0 就成功了。</p>
+                    <h3>A.3 告诉 Git 你是谁</h3>
+                    <pre><code class="language-bash">git config --global user.name "你的名字"
+git config --global user.email "你的邮箱"</code></pre>
+                    <h3>A.4 创建 GitHub 仓库</h3>
+                    <p>打开 github.com 注册并登录。(打不开网站？请看A.4.1）</p>
+                    <p>点击右上角头像旁边的 “+” → “New repository”。</p>
+                    <p>仓库名填 my-first-project，选择 Public。不要勾选 “Add a README file” 等初始化选项——我们要从本地推上去一个已有项目，勾了反而会冲突。</p>
+                    <h4>A.4.1 无法正常访问Github</h4>
+                    <p>方法一：使用Watt Toolkit加速器，前往https://steampp.net/下载安装选中Github加速即可。</p>
+                    <p>方法二：代理（略）</p>
+                    <h3>A.5 把本地项目变成 Git 仓库</h3>
+                    <pre><code class="language-bash">cd my-first-project
+git init
+git add .
+git commit -m "第一次提交：添加主程序"</code></pre>
+                    <h3>A.6 把本地仓库推到 GitHub（push）</h3>
+                    <pre><code class="language-bash">git remote add origin https://github.com/你的用户名/my-first-project.git
+git branch -M main
+git push -u origin main</code></pre>
+                    <h3>A.7 日常修改流程</h3>
+                    <pre><code class="language-bash">git add .
+git commit -m "修复了登录按钮的样式"
+git push</code></pre>
+                    <h3>A.8 从 GitHub 拉取更新（pull）</h3>
+                    <pre><code class="language-bash">git pull origin main
+git clone https://github.com/用户名/仓库名.git</code></pre>
+                    <h3>A.9 常用的周边操作</h3>
+                    <pre><code class="language-bash">git log --oneline
+git checkout -- 文件名
+git reset HEAD 文件名</code></pre>
+                    <p>添加 .gitignore 文件：</p>
+                    <pre><code class="language-bash">__pycache__/
+venv/
+*.pyc
+.DS_Store</code></pre>
+                    <h3>A.10 分支简介</h3>
+                    <pre><code class="language-bash">git checkout -b new-feature
+git checkout main
+git merge new-feature
+git branch -d new-feature</code></pre>
+                    <h3>A.11 总结</h3>
+                    <p>本地初始化：git init，git add，git commit；关联远程：git remote add origin 地址；推送：git push；拉取：git pull；克隆：git clone。</p>
+                    <p>现在，挑一个你前面写的 Python 项目，按这个指南推上 GitHub，然后把仓库链接发给朋友看一看。代码只有被看见，才真正拥有了生命。</p>
+                </section>
+
+                <!-- 动手才是真的学 -->
+                <section class="mb-16 scroll-mt-24" id="hands-on">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">动手才是真的学</h2>
+                    <div class="callout callout-success mb-6">
+                        <p><strong>使用规则：</strong></p>
+                        <ol class="list-decimal list-inside">
+                            <li>先猜再跑——每次运行前，写出你预期的输出</li>
+                            <li>每个实验至少做一次"故意搞坏"——改数字、删括号、少写冒号，看报错信息</li>
+                            <li>想 10 分钟没思路再看提示，不要瞄一眼题目就翻答案</li>
+                            <li>实验 3.3（真值测试）和实验 6.1（列表变异）是必做，其他自选</li>
+                        </ol>
+                    </div>
+                    <h3>第 2 章实验：认积木</h3>
+                    <h4>实验 2.1：数字实验室</h4>
+                    <pre><code class="language-python">print(10 / 3)
+print(10 // 3)
+print(10 % 3)
+print(10 ** 3)</code></pre>
+                    <p>破坏挑战：试试 10 / 0，记住这个错误长相。</p>
+                    <h4>实验 2.2：字符串拼装</h4>
+                    <pre><code class="language-python">a = "Python"
+b = "很有趣"
+print(a + b)
+print(a * 3)</code></pre>
+                    <p>破坏挑战：试试 a + 3（不加 str()），再试试 a * "2"，看看分别报什么错。</p>
+                    <h4>实验 2.3：f-string 对比</h4>
+                    <pre><code class="language-python">name = "你"
+print(f"欢迎{name}，今天{2026 - 2000}年")</code></pre>
+                    <h4>实验 2.4：type 侦探</h4>
+                    <pre><code class="language-python">print(type(42))
+print(type(42.0))
+print(type("42"))
+print(type(True))
+print(type(False))
+print(type("True"))</code></pre>
+                    <h3>第 3 章实验：造岔路</h3>
+                    <h4>实验 3.1：温度转换</h4>
+                    <p>写一个程序，用户输入摄氏度，输出华氏度。公式：F = C × 9/5 + 32。再加一句判断：如果温度低于 0°C，打印"结冰了"。</p>
+                    <h4>实验 3.2：登录模拟</h4>
+                    <pre><code class="language-python">stored_password = "python123"
+user_input = input("请输入密码：")</code></pre>
+                    <p>提示：需要一个计数器。</p>
+                    <h4>实验 3.3：真值测试（必做）</h4>
+                    <pre><code class="language-python">tests = [0, 1, "", " ", [], [0], None, False, True]
+for item in tests:
+    # 你的代码
+    pass</code></pre>
+                    <p>破坏挑战：猜猜 if "False": 是真是假？先猜再验证。</p>
+                    <h3>第 4 章实验：让机器重复</h3>
+                    <h4>实验 4.1：画三角</h4>
+                    <pre><code class="language-python">*
+**
+***
+****
+*****</code></pre>
+                    <p>提示：range(1, 6) 和字符串乘法 *。</p>
+                    <h4>实验 4.2：猜数字——你自己的版本</h4>
+                    <pre><code class="language-python">import random
+answer = random.randint(1, 100)</code></pre>
+                    <h4>实验 4.3：百元百鸡</h4>
+                    <p>公鸡 5 元一只，母鸡 3 元一只，小鸡 1 元三只。用 100 元买 100 只鸡，有几种买法？</p>
+                    <h3>第 5 章实验：造工具</h3>
+                    <h4>实验 5.1：拆弹改造</h4>
+                    <p>找一章之前写过的代码，把它拆成至少 3 个函数。</p>
+                    <h4>实验 5.2：函数调试题</h4>
+                    <pre><code class="language-python">def double(x):
+    return x * 2
+result = double(5)
+print(double)  # 少写了什么？
+
+def add(a, b):
+    total = a + b
+result = add(3, 4)
+print(result)  # 打印出来的是什么？</code></pre>
+                    <h4>实验 5.3：先写 docstring，再写代码</h4>
+                    <p>选下面一个题目，先写 docstring，再写代码。</p>
+                    <ol><li>is_palindrome(s)</li><li>factorial(n)</li></ol>
+                    <h3>第 6 章实验：容器玩法</h3>
+                    <h4>实验 6.1：列表变异观察（必做）</h4>
+                    <pre><code class="language-python">a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)  # 你觉得是多少？
+
+x = 10
+y = x
+y = 20
+print(x)  # 现在是多少？</code></pre>
+                    <h4>实验 6.2：用字典做简单统计</h4>
+                    <pre><code class="language-python">text = "Your text here..."
+counts = {}
+# 你的代码</code></pre>
+                    <h4>实验 6.3：通讯录扩展</h4>
+                    <p>加两个功能：删除联系人、搜索联系人（如"张"）。</p>
+                    <h3>第 7 章实验：跟文件对话</h3>
+                    <h4>实验 7.1：写一个日记程序</h4>
+                    <pre><code class="language-python">from datetime import datetime
+today = datetime.now().strftime("%Y-%m-%d %H:%M")</code></pre>
+                    <h4>实验 7.2：通讯录 + 文件持久化</h4>
+                    <p>启动时从文件 contacts.txt 读取，退出时保存。</p>
+                    <h4>实验 7.3：故意搞坏再修好</h4>
+                    <pre><code class="language-python">int("不是数字")
+[1, 2, 3][100]
+{"a": 1}["b"]
+1 / 0</code></pre>
+                    <p>强制：修复每一个之后用 print 输出友好的错误提示。</p>
+                    <h3>综合挑战（学完第 7 章后做）</h3>
+                    <p><strong>挑战 A：命令行记账本</strong></p>
+                    <ul><li>记录收入/支出</li><li>查看余额</li><li>最近10条记录</li><li>数据持久化</li></ul>
+                    <p><strong>挑战 B：密码生成器</strong></p>
+                    <pre><code class="language-python">def generate_password(length=12, use_symbols=True):
+    # 至少包含大小写字母、数字</code></pre>
+                    <p><strong>挑战 C：代码考古</strong></p>
+                    <p>找一份旧代码，加 docstring、拆函数、加 try-except。</p>
+                </section>
+                <!-- 后记 -->
+                <section class="mb-16 scroll-mt-24" id="epilogue">
+                    <div class="epilogue-block">
+                        <h2 class="text-3xl font-bold text-slate-900 mb-6">造梦者的下一行诗</h2>
+                        <p>浅尝到此。</p>
+                        <p>这本书讲的内容并不深入，考虑到新手的适应性以及这本书的入门性，我们删去了后面一半的内容。在Github仓库，你应该也看到了那后半本的电子版。</p>
+                        <p>如果你觉得有意思，可以继续往前走：</p>
+                        <ul class="list-disc list-inside"><li>学习后半本的内容（面向对象编程是Python的核心范式）</li><li>或者，干脆就拿着现在的本事，去解决你身边一个真实的小麻烦——比如帮你妈整理通讯录，帮你朋友批量改文件名</li></ul>
+                        <p>编程这门手艺最迷人的地方不在于它有多难，而在于你写下一行代码，电脑就老实执行一行。每一次报错都是它在告诉你：这里还差一点。你改，它跑。就这么简单。</p>
+                        <p>你把这本书从第一页看到了这里，已经比绝大多数只收藏从未翻开的人走得远多了。</p>
+                        <p>以后你学习更多的内容，可以借助AI（不要依赖AI写代码），可以多在网上论坛找教程（比如菜鸟教程）。</p>
+                        <div class="divider-dot">✦</div>
+                        <p class="text-center font-medium">后记很短，<br/>未来很长。</p>
+                        <p class="epilogue-signature">绘萤者</p>
+                    </div>
+                </section>
+                <footer class="mt-20 pt-10 border-t border-slate-200">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div><h4 class="font-bold text-slate-900 mb-2">代码部分：MIT 许可证</h4><p class="text-xs text-slate-500 leading-relaxed">Copyright (c) 2026 绘萤者Lynvortex<br/>Permission is hereby granted...</p></div>
+                        <div><h4 class="font-bold text-slate-900 mb-2">文字与图片：CC BY-NC-ND 4.0</h4><p class="text-xs text-slate-500 leading-relaxed">署名-非商业使用-禁止演绎 4.0 国际</p><a class="text-blue-600 hover:underline text-xs" href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.zh-Hans" target="_blank">完整许可证文本</a></div>
+                    </div>
+                    <div class="text-center text-slate-400 text-sm pb-8"><p>造梦者的下一行诗 • 浅尝到此。</p></div>
+                </footer>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            const mainContent = document.getElementById('main-content');
+            function toggleMenu() {
+                const isClosed = sidebar.classList.contains('-translate-x-full');
+                sidebar.classList.toggle('-translate-x-full', !isClosed);
+                overlay.classList.toggle('opacity-0', isClosed);
+                overlay.classList.toggle('pointer-events-none', isClosed);
+            }
+            menuToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) link.classList.add('active');
+                        });
+                    }
+                });
+            }, { root: mainContent, threshold: 0.2 });
+            sections.forEach(section => observer.observe(section));
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        if (!sidebar.classList.contains('-translate-x-full')) toggleMenu();
+                        const headerOffset = 80;
+                        const elementPosition = targetSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + mainContent.scrollTop - headerOffset;
+                        mainContent.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                    }
+                });
+            });
+            Prism.highlightAll();
+            function addCopyButtons() {
+                document.querySelectorAll('pre').forEach(pre => {
+                    if (pre.querySelector('.copy-btn')) return;
+                    const computedPos = getComputedStyle(pre).position;
+                    if (computedPos === 'static') pre.style.position = 'relative';
+                    const btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = '<i class="fa-solid fa-copy"></i>';
+                    btn.setAttribute('aria-label', '复制代码');
+                    btn.type = 'button';
+                    btn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const code = pre.textContent || '';
+                        let copied = false;
+                        try { await navigator.clipboard.writeText(code); copied = true; } catch {
+                            const textarea = document.createElement('textarea');
+                            textarea.value = code; textarea.style.position = 'fixed'; textarea.style.opacity = '0';
+                            document.body.appendChild(textarea); textarea.select();
+                            try { document.execCommand('copy'); copied = true; } catch {}
+                            document.body.removeChild(textarea);
+                        }
+                        if (copied) {
+                            btn.innerHTML = '<i class="fa-solid fa-check"></i>'; btn.classList.add('copied');
+                            setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-copy"></i>'; btn.classList.remove('copied'); }, 1500);
+                        }
+                    });
+                    pre.appendChild(btn);
+                });
+            }
+            addCopyButtons();
+            new MutationObserver(() => addCopyButtons()).observe(mainContent, { childList: true, subtree: true });
+        });
+    </script>
+</body>
+</html>
